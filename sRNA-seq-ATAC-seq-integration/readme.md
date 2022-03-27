@@ -7,4 +7,4 @@ Liger : liger.R <br>
 Seurat : seurat.R <br>
 ScEpiSearch : scepisearch.py <br>
 
-For Visualization Code used is : seurat_liger_tsne_plot.R
+For Visualization Code used for all methods is : tsne_plot.R

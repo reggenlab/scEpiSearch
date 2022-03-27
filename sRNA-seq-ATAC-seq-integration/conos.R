@@ -42,59 +42,8 @@ for(i in 1:nrow(tsne)){
     tsne[i,4] = metadata.rna$V1[ind][1]
   }
 }
-r1 = data.frame(l.con$samples$atac$embeddings$PCA$largeVis)
-r1$CellName = rownames(r1)
-r1$Group = 'Myoblast_human'
-colnames(r1) = c("x","y","CellName","Group")
-r1$x = tsne$x[tsne$Group=='atac']
-r1$y = tsne$y[tsne$Group=='atac']
-#
-r1$x = r1$x+rnorm(3*10, sd=0.1)
-r1$y = r1$y+rnorm(3*10, sd=0.1)
-tsne = rbind(tsne,r1)
 tsne$Group[tsne$Group == 'atac'] = 'macrophage_mouse'
 tsne$Group[tsne$Group == 'atac_1'] = 'Endothelial_mouse'
 tsne$Group[tsne$Group == 'atac_2'] = 'Macrophage_mouse'
 tsne$Group[tsne$Group == 'atac_3'] = 'Bcell_mouse'
-library(dplyr)
-colnames(tsne) = c("a","TSNE_1","TSNE_2","X")
-data1 = dplyr::filter(tsne, grepl('Macro|Macrophage_mouse|B cell|Bcell_mouse|Endo|Endothelial_mouse', X))
-data2 = dplyr::filter(tsne, !grepl('Macro|Macrophage_mouse|B cell|Bcell_mouse|Endo|Endothelial_mouse', X))
-
-data1 = dplyr::filter(tsne, grepl('Macro|macrophage_mouse', X))
-data2 = dplyr::filter(tsne, !grepl('Macro|macrophage_mouse', X))
-data1 = dplyr::filter(tsne, grepl('Endo|endothelial_mouse', X))
-data2 = dplyr::filter(tsne, !grepl('Endo|endothelial_mouse', X))
-data1 = dplyr::filter(tsne, grepl('T cell|B cell|mono|dendritic|PBMC_human', X))
-data2 = dplyr::filter(tsne, !grepl('T cell|B cell|mono|dendritic|PBMC_human', X))
-data1 = dplyr::filter(data, grepl('Embryonic-Stem-Cell|H1ESC|GM_human|B cell|BJ_human|fibro', X))
-data2 = dplyr::filter(data, !grepl('Embryonic-Stem-Cell|H1ESC|GM_human|B cell|BJ_human|fibro', X))
-data1 = dplyr::filter(tsne, grepl('Embryonic-Stem-Cell|H1ESC', X))
-data2 = dplyr::filter(tsne, !grepl('Embryonic-Stem-Cell|H1ESC', X))
-data1 = dplyr::filter(tsne, grepl('GM_human|B cell', X))
-data2 = dplyr::filter(tsne, !grepl('GM_human|B cell', X))
-data1 = dplyr::filter(tsne, grepl('Myoblast_human|myocyte', X))
-data2 = dplyr::filter(tsne, !grepl('Myoblast_human|myocyte', X))
-data1 = dplyr::filter(tsne, grepl('neuron|neuron_human', tolower(X)))
-data2 = dplyr::filter(tsne, !grepl('neuron|neuron_human', tolower(X)))
-data2$X = "other"
-f_data = rbind(data1,data2)
-colnames(f_data) = c("a","TSNE_1","TSNE_2","X")
-f_data= f_data[order(-as.numeric(factor(f_data$X))),]
-library(Polychrome)
-library(ggpubr)
-seed <- c("#ff0000", "#00ff00")
-mycolors <- createPalette(length(unique(f_data$X)), seed, prefix="mine")
-names(mycolors) <- levels(as.factor(f_data$X))
-mycolors['B cell_Vpreb3 high(Peripheral_Blood)'] = 'black'
-mycolors['other'] = '#DEDEDE33'
-mycolors['H1ESC'] = 'purple'
-colScale <- scale_colour_manual(name = "X",values = mycolors)
-g=ggscatter(f_data, x = "TSNE_1", y = "TSNE_2",
-            color = "X",size=1)+colScale+font("legend.text",color = "black",size = 10)+theme(legend.position='right')+ guides(colour = guide_legend(override.aes = list(size=10)))
-g
-
-
-drops <- c("Group")
-tsne = tsne[ , !(names(tsne) %in% drops)]
 
