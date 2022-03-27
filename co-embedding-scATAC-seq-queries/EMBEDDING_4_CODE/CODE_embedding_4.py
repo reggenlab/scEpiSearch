@@ -8,7 +8,7 @@ from sklearn.neighbors import kneighbors_graph
 import itertools
 import networkx as nx
 
-adj = np.loadtxt("./scepi_adj_embedding_2.txt",delimiter=",")
+adj = np.loadtxt("./scepi_adj_embedding_4.txt",delimiter=",")
 
 adj = np.nan_to_num(adj)
 adj = np.abs(adj)                                   # no negative weights

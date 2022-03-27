@@ -6,7 +6,7 @@ from itertools import cycle, islice
 import matplotlib.pyplot as plt
 from sklearn.neighbors import kneighbors_graph
 
-adj = np.loadtxt("./scepi_adj_embedding_2.txt",delimiter=",")
+adj = np.loadtxt("./scepi_adj_embedding_3.txt",delimiter=",")
 
 adj = np.nan_to_num(adj)
 adj = np.abs(adj)                                   # no negative weights
@@ -44,10 +44,10 @@ python SCALE.py --dataset ./DATASET.tsv --n_centroids 1 --batch_size 500 --seed 
 ######################################################################################
 
 import matplotlib.pyplot
-human_bcell = np.loadtxt("./output_scale_embedding3/feature_human_gm.txt",delimiter="\t")
-mouse_bcell = np.loadtxt("./output_scale_embedding3/feature_gm_mouse.txt",delimiter="\t")
-human_tcell = np.loadtxt("./output_scale_embedding4/feature_tcell_human.txt",delimiter="\t")
-mouse_tcell = np.loadtxt("./output_scale_embedding4/feature_tcell_mouse.txt",delimiter="\t")
+human_bcell = np.loadtxt("./output_scale_embedding/feature_human_gm.txt",delimiter="\t")
+mouse_bcell = np.loadtxt("./output_scale_embedding/feature_gm_mouse.txt",delimiter="\t")
+human_tcell = np.loadtxt("./output_scale_embedding/feature_tcell_human.txt",delimiter="\t")
+mouse_tcell = np.loadtxt("./output_scale_embedding/feature_tcell_mouse.txt",delimiter="\t")
 latent_space = np.concatenate([human_bcell,mouse_bcell,human_tcell,mouse_tcell],axis=0)
 ts = TSNE(n_components=2).fit_transform(latent_space)
 import matplotlib.pyplot as plt
@@ -103,7 +103,7 @@ latent = model.get_latent_representation()
 
 import matplotlib.pyplot
 from sklearn.manifold import TSNE
-latent_space = np.loadtxt("./scvi_embedding4.txt",delimiter=",")
+latent_space = np.loadtxt("./scvi_embedding3.txt",delimiter=",")
 ts = TSNE(n_components=2).fit_transform(latent_space)
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
@@ -153,7 +153,7 @@ integrated_f = np.concatenate([integrated[0],integrated[1],integrated[2],integra
 np.savetxt("./scanorama.txt",np.transpose(integrated_f),delimiter=",")
 
 import matplotlib.pyplot
-latent_space = np.loadtxt("./scanorama_embedding4.txt",delimiter=",")
+latent_space = np.loadtxt("./scanorama_embedding3.txt",delimiter=",")
 import numpy as np
 from sklearn.manifold import TSNE
 ts = TSNE(n_components=2).fit_transform(np.transpose(latent_space))

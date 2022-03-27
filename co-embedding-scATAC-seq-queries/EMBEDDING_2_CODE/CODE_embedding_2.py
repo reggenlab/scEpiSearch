@@ -6,7 +6,7 @@ from itertools import cycle, islice
 import matplotlib.pyplot as plt
 from sklearn.neighbors import kneighbors_graph
 
-adj = np.loadtxt("./embedding_results/scepi_adj_embedding_3.txt",delimiter=",")
+adj = np.loadtxt("./embedding_results/scepi_adj_embedding_2.txt",delimiter=",")
 adj = np.nan_to_num(adj)
 adj = np.abs(adj)                                   # no negative weights
 adj = adj - np.diag(np.diag(adj))                   # no self loops
@@ -52,10 +52,10 @@ python SCALE.py --dataset ./DATASET.tsv --n_centroids 1 --batch_size 500 --seed 
 
 import matplotlib.pyplot
 from sklearn.manifold import TSNE
-human_bcell = np.loadtxt("./output_scale_embedding3/feature_human_gm.txt",delimiter="\t")
-mouse_bcell = np.loadtxt("./output_scale_embedding3/feature_gm_mouse.txt",delimiter="\t")
-human_hek = np.loadtxt("./output_scale_embedding3/feature_hek_human.txt",delimiter="\t")
-mouse_proximal = np.loadtxt("./output_scale_embedding3/feature_proximal_mouse.txt",delimiter="\t")
+human_bcell = np.loadtxt("./output_scale_embedding2/feature_human_gm.txt",delimiter="\t")
+mouse_bcell = np.loadtxt("./output_scale_embedding2/feature_gm_mouse.txt",delimiter="\t")
+human_hek = np.loadtxt("./output_scale_embedding2/feature_hek_human.txt",delimiter="\t")
+mouse_proximal = np.loadtxt("./output_scale_embedding2/feature_proximal_mouse.txt",delimiter="\t")
 latent_space = np.concatenate([human_bcell,mouse_bcell,human_hek,mouse_proximal],axis=0)
 ts = TSNE(n_components=2).fit_transform(latent_space)
 import matplotlib.pyplot as plt
@@ -111,7 +111,7 @@ latent = model.get_latent_representation()
 np.savetxt("./scvi_latent.txt",latent,delimiter=",")
 
 import matplotlib.pyplot
-latent_space = np.loadtxt("./scvi_embedding3.txt",delimiter=",")
+latent_space = np.loadtxt("./scvi_embedding2.txt",delimiter=",")
 ts = TSNE(n_components=2).fit_transform(latent_space)
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
@@ -161,7 +161,7 @@ integrated_f = np.concatenate([integrated[0],integrated[1],integrated[2],integra
 np.savetxt("./scanorama.txt",np.transpose(integrated_f),delimiter=",")
 
 import matplotlib.pyplot
-latent_space = np.loadtxt("./scanorama_embedding3.txt",delimiter=",")
+latent_space = np.loadtxt("./scanorama_embedding2.txt",delimiter=",")
 import numpy as np
 from sklearn.manifold import TSNE
 ts = TSNE(n_components=2).fit_transform(np.transpose(latent_space))
@@ -180,10 +180,10 @@ plt.show()
 
 -----------------------------------------------------MINT-----------------------------------------------------------------------------
 library(mixOmics)
-human_bcell = read.table("/storage/vibhor/Phds/shreya/shreya_embedding/embedding_3/GE_human_gm100cells.txt",sep=",", header=TRUE, row.names = 1)
-mouse_bcell= read.table("/storage/vibhor/Phds/shreya/shreya_embedding/embedding_3/GE_mouse_bcell100cells.txt",sep=",", header=TRUE, row.names = 1)
-mouse_proximal = read.table("/storage/vibhor/Phds/shreya/shreya_embedding/embedding_3/GE_mouse_proximal100cells.txt",sep=",", header=TRUE, row.names = 1)
-human_hek = read.table("/storage/vibhor/Phds/shreya/shreya_embedding/embedding_3/GE_human_hek100cells.txt",sep=",", header=TRUE, row.names = 1)
+human_bcell = read.table("GE_human_gm100cells.txt",sep=",", header=TRUE, row.names = 1)
+mouse_bcell= read.table("GE_mouse_bcell100cells.txt",sep=",", header=TRUE, row.names = 1)
+mouse_proximal = read.table("GE_mouse_proximal100cells.txt",sep=",", header=TRUE, row.names = 1)
+human_hek = read.table("GE_human_hek100cells.txt",sep=",", header=TRUE, row.names = 1)
 
 colnames(human_bcell)[1:ncol(human_bcell)]  = 'GM12878'
 colnames(mouse_bcell)[1:ncol(mouse_bcell)]  = 'Bcell'
