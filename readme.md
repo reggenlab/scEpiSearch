@@ -31,28 +31,28 @@ H1ESC (GSE65360) : http://reggen.iiitd.edu.in:1207/episearch/?job=-p880gctre-yhr
 <br/>
 Dataset Location : http://reggen.iiitd.edu.in:1207/episearch/index.php?view=sample_queries <br/>
 <br/>
-Figure-1(G,H) : Code : https://github.com/reggenlab/scEpiSearch_standalone/tree/main/pythonfiles<br/>
+Figure-1(G,H) : Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code<br/>
 Dataset : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-1(G,H),S5,S6-data/<br/>
 Result Tables : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/
 <br/><br/>
 Figure-2 Data : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-2-data-code/ <br />
-Code : https://github.com/reggenlab/scEpiSearch_standalone/tree/main/pythonfiles , 
+Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code , 
 <br/><br/>
-Figure-3(a) Data : <a href="" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_1_CODE</a><br />
-code : <a href="https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_1_CODE/CODE_embedding_1.py" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_1_CODE/CODE_embedding_1.py</a>
+Figure-3(a) Data : <a href="" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE</a><br />
+code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE</a>
 <br/><br/>
-Figure-3(b) Data : <a href="https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_2_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_2_CODE</a><br />
-code : <a href="https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_2_CODE/CODE_embedding_2.py" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_2_CODE/CODE_embedding_2.py</a>
+Figure-3(b) Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE</a><br />
+code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE</a>
 <br/><br/>
-Figure-3(c) Data : <a href="https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_3_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_3_CODE</a><br />
-code : <a href="https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_3_CODE/CODE_embedding_3.py" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_3_CODE/CODE_embedding_3.py</a>
+Figure-3(c) Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE</a><br />
+code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE</a>
 <br/><br/>
-Figure-S9 Data : <a href="https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_4_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/tree/main/scepi_figures_code/Figure-3/EMBEDDING_3_CODE</a><br />
-code : <a href="https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_4_CODE/CODE_embedding_4.py" style="color: red">https://github.com/reggenlab/scEpiSearch_standalone/blob/main/scepi_figures_code/Figure-3/EMBEDDING_4_CODE/CODE_embedding_4.py</a>
+Figure-S9 Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE</a><br />
+code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE</a>
 <br/><br/>
 <br/><br/>
 Figure-4 Data : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-4-data-code/<br />
 Code : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-4-data-code/TSNE_cancer_immune_embedding_final.ipynb 
 <br/><br/>
 Figure-5 Data : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-5-data-code/ <br />
-Code : https://github.com/reggenlab/scEpiSearch_standalone/tree/main/pythonfiles , http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-5-data-code/mESC.ipynb
+Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code , https://github.com/reggenlab/scEpiSearch/tree/main/mESC-scATAC-seq-analysis
