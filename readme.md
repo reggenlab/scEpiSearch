@@ -32,8 +32,8 @@ H1ESC (GSE65360) : http://reggen.iiitd.edu.in:1207/episearch/?job=-p880gctre-yhr
 <br/>
 Dataset Location : http://reggen.iiitd.edu.in:1207/episearch/index.php?view=sample_queries <br/>
 <br/>
-Figure-1(G,H) : Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code<br/>
-Dataset : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-1(G,H),S5,S6-data/<br/>
+Figure-S5,S6,S7 : Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code<br/>
+Dataset : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-S5,S6,S7-data/<br/>
 Result Tables : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/
 <br/><br/>
 Figure-2 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-2-data-code/ <br />
