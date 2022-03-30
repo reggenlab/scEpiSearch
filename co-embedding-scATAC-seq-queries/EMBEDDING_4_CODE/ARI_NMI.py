@@ -1,6 +1,6 @@
 
 
-adj = np.loadtxt("./embedding_results/scepi_adj_embedding_4.txt",delimiter=",")
+adj = np.loadtxt("scepi_adj_embedding_4.txt",delimiter=",")
 clustering = SpectralClustering(n_clusters=2,assign_labels="kmeans",random_state=0,affinity='precomputed').fit(adj)
 
 clustering.labels_[:20] = 0
