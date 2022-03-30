@@ -3,7 +3,7 @@ Studying single cells using epigenome helps in highlighting active and poised re
 Web server : http://reggen.iiitd.edu.in:1207/episearch/<br/>
 Standalone code : https://github.com/reggenlab/scEpiSearch_standalone/tree/main/pythonfiles<br/>
 Please download standalone tool from http://scepisearch.com/ "Download Tool" section<br>
-Supplementary Tables & Files : http://192.168.2.225:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/
+Supplementary Tables & Files : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/
 <br/><br/>
 Link for Data,code,Results of figures : <br /><br/>
 Figure-1 :<br/>
