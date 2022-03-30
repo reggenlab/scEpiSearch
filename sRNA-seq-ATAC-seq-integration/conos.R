@@ -27,7 +27,7 @@ data <- list(atac = gene.activities, rna = rna_dgc)
 data <- list(atac_1 = endo,atac_2=macro,atac_3=bj, rna = rna_dgc)
 
 p2l <- mclapply(data,basicP2proc,n.odgenes=3e3,nPcs=30,make.geneknn=F,n.cores=30,mc.cores=1)
-metadata.rna = read.csv("/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/MCA_reference_labels.csv",header=F)
+metadata.rna = read.csv("MCA_reference_labels.csv",header=F)
 rownames(metadata.rna) = colnames(rna_dgc)
 
 l.con <- Conos$new(p2l,n.cores=30)
