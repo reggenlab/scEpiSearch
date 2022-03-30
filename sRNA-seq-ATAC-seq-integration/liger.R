@@ -1,5 +1,7 @@
 #LIGER :
+######################################### Load reference dataset ############################################
 data.rna <- read.csv("MCA_reference.csv")
+########################################Load query atac seq dataset ######################################
 data.atac <- read.csv("h1esc_liger.tsv",sep="\t")
 rownames(data.rna) = data.rna[1:nrow(data.rna),1]
 data.rna = data.rna[1:nrow(data.rna),2:ncol(data.rna)]
@@ -9,6 +11,7 @@ data.atac = data.atac[!duplicated(data.atac$V1),]
 data.atac = data.atac[!(is.na(data.atac$V1) | data.atac$V1==""), ]
 rownames(data.atac) = data.atac[1:nrow(data.atac),1]
 data.atac = data.atac[1:nrow(data.atac),2:ncol(data.atac)]
+
 bmmc.data <- list(atac = data.atac, rna = data.rna)
 int.bmmc <- createLiger(bmmc.data)
 int.bmmc <- normalize(int.bmmc)
