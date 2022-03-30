@@ -3,19 +3,27 @@ library(pagoda2)
 library(parallel)
 library(ggplot2)
 library(Matrix)
+########################Load reference dataset file###########################################
 pbmc.rna <- read.csv("MCA_reference.csv",row.names=1)
 row.names(pbmc.rna) = toupper(row.names(pbmc.rna))
+
+######################Load query atac-seq (gene activity scores) ###################################
 gene.activities <- read.table("3cells_activity_matrix_mouse.txt",row.names=1,sep=" ")
 row.names(gene.activities) = toupper(row.names(gene.activities))
+
+##################subset query cells based on celltype if required#################################
 endo = gene.activities[,1:318]
 macro = gene.activities[,319:413]
 bj = gene.activities[,414:437]
+
 gene.activities <- as(gene.activities,"dgCMatrix") 
+################convert queries to dgcMatrix#############################
 endo <- as(endo,"dgCMatrix") 
 macro <- as(macro,"dgCMatrix") 
 bj <- as(bj,"dgCMatrix") 
 rna_dgc =  as(pbmc.rna, "dgCMatrix")
 data <- list(atac = gene.activities, rna = rna_dgc)
+#####################combine reference and query matrices#########################
 data <- list(atac_1 = endo,atac_2=macro,atac_3=bj, rna = rna_dgc)
 
 p2l <- mclapply(data,basicP2proc,n.odgenes=3e3,nPcs=30,make.geneknn=F,n.cores=30,mc.cores=1)
