@@ -3,9 +3,9 @@ library(pagoda2)
 library(parallel)
 library(ggplot2)
 library(Matrix)
-pbmc.rna <- read.csv("/storage/vibhor/neeteshp/shreyas_tools_testing/MCA_reference.csv",row.names=1)
+pbmc.rna <- read.csv("MCA_reference.csv",row.names=1)
 row.names(pbmc.rna) = toupper(row.names(pbmc.rna))
-gene.activities <- read.table("/storage/vibhor/neeteshp/shreyas_tools_testing/seurat-embed/activity_matrix_new/3cells_activity_matrix_mouse.txt",row.names=1,sep=" ")
+gene.activities <- read.table("3cells_activity_matrix_mouse.txt",row.names=1,sep=" ")
 row.names(gene.activities) = toupper(row.names(gene.activities))
 endo = gene.activities[,1:318]
 macro = gene.activities[,319:413]
@@ -42,6 +42,7 @@ for(i in 1:nrow(tsne)){
     tsne[i,4] = metadata.rna$V1[ind][1]
   }
 }
+#assign names to atac groups according to their cell types
 tsne$Group[tsne$Group == 'atac'] = 'macrophage_mouse'
 tsne$Group[tsne$Group == 'atac_1'] = 'Endothelial_mouse'
 tsne$Group[tsne$Group == 'atac_2'] = 'Macrophage_mouse'
