@@ -1157,7 +1157,8 @@ def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poi
     else:
         print("error")
 		
-		
+
+##########################Select query peak file and count file of query cells #################################
 chr_file='./human/human_epigenome/5_queries/h1esc/h1esc.bed'
 query_file='./human/human_epigenome/5_queries/h1esc/h1esc_human.txt'
 top_study=5
