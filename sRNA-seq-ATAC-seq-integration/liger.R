@@ -1,6 +1,6 @@
 #LIGER :
-data.rna <- read.csv("/storage/vibhor/neeteshp/shreyas_tools_testing/MCA_reference.csv")
-data.atac <- read.csv("/storage/vibhor/neeteshp/shreyas_tools_testing/H1ESC_final.csv")
+data.rna <- read.csv("MCA_reference.csv")
+data.atac <- read.csv("h1esc_liger.tsv",sep="\t")
 rownames(data.rna) = data.rna[1:nrow(data.rna),1]
 data.rna = data.rna[1:nrow(data.rna),2:ncol(data.rna)]
 row.names(data.rna) = toupper(row.names(data.rna))
