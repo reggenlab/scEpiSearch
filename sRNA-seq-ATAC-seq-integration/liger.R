@@ -2,7 +2,7 @@
 ######################################### Load reference dataset ############################################
 data.rna <- read.csv("MCA_reference.csv")
 ########################################Load query atac seq dataset ######################################
-data.atac <- read.csv("h1esc_liger.tsv",sep="\t")
+data.atac <- read.csv("liver-3cells_liger.txt")
 rownames(data.rna) = data.rna[1:nrow(data.rna),1]
 data.rna = data.rna[1:nrow(data.rna),2:ncol(data.rna)]
 row.names(data.rna) = toupper(row.names(data.rna))
