@@ -126,6 +126,7 @@ silhouette_score_scepi <- function(k){
   #mean(ss[, 3])
   ss[,3]
 }
+k=5
 avg_sil_scale <- sapply(k, silhouette_score_scale)
 avg_sil_scanorama <- sapply(k, silhouette_score_scanorama)
 avg_sil_scvi <- sapply(k, silhouette_score_scvi)
@@ -133,7 +134,7 @@ avg_sil_mint <- sapply(k, silhouette_score_mint)
 avg_sil_scepi <- sapply(k, silhouette_score_scepi)
 #plot(k, type='b', avg_sil, xlab='Number of clusters', ylab='Average Silhouette Scores', frame=FALSE)
 
-boxplot(c(avg_sil_scale),c(avg_sil_scepi),c(avg_sil_scanorama),c(avg_sil_scvi),c(avg_sil_mint), names = c("SCALE", "ScEpiSearch", "SCANORAMA", "SCVI","MINT"),
+boxplot(c(avg_sil_scale),c(avg_sil_scepi),c(avg_sil_scanorama),c(avg_sil_scvi),c(avg_sil_mint), names = c("ScEpiSearch", "SCALE", "SCANORAMA", "SCVI","MINT"),
         col = c("orange","red",'green','blue','yellow'),
         main = "Case-1",
         border = "brown",
