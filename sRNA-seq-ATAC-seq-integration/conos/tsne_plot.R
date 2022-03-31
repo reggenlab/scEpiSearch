@@ -1,6 +1,5 @@
 ##ggplot based
-setwd("/storage/vibhor/neeteshp/shreyas_tools_testing/")
-data = read.csv("./seurat-embed/mouse/embeds-MCA-cell-Mouse-liver-3cells.txt",sep="\t")
+data = read.csv("pbmc_conos_tsne.txt.csv",sep=",")
 #data = data[2:nrow(data),]
 #data$V8 = paste0(data$V5," ",data$V6," ",data$V7)
 data = data[,c(2,3,4)]
