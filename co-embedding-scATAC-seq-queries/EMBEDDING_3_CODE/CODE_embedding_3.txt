@@ -5,13 +5,23 @@ from sklearn.cluster import SpectralClustering
 from itertools import cycle, islice
 import matplotlib.pyplot as plt
 from sklearn.neighbors import kneighbors_graph
+import networkx as nx
+from sklearn.manifold import TSNE
+import numpy as np
 
-adj = np.loadtxt("./scepi_adj_embedding_3.txt",delimiter=",")
+adj = np.loadtxt("scepi_adj_embedding_3.txt",delimiter=",")
 
 adj = np.nan_to_num(adj)
 adj = np.abs(adj)                                   # no negative weights
 adj = adj - np.diag(np.diag(adj))                   # no self loops
 adj = np.triu(adj) + np.transpose(np.triu(adj))
+
+import itertools
+ann = []
+l = [np.repeat(1,100),np.repeat(2,100),np.repeat(3,100),np.repeat(4,100)]
+l = list(itertools.chain(*l))
+for i in range(adj.shape[0]):
+	ann.append("D"+str(l[i])+" "+"Q"+str(i))
 
 import networkx as nx
 G = nx.from_numpy_matrix(np.matrix(adj>7))
@@ -24,7 +34,7 @@ pos=nx.spring_layout(G)
 
 labels = {}    
 for i,node in enumerate(G.nodes()):
-    labels[node] = ann[i]
+	labels[node] = ann[i]
 
 fig, ax = plt.subplots(figsize=(5,5))
 

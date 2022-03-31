@@ -5,7 +5,7 @@ Mouse-Tcell : chromosome_mouse_tcell.bed+mouse_tcell_100cells.csv , GE_mouse_tce
 Mouse-Bcell : chromosome_hek.bed+mouse_bcell_100cells.csv , GE_mouse_bcells100cells.txt
 
 Code for Calculation of Latent Spaces and visualization:
-CODE_embedding_2.py
+CODE_embedding_2.txt
 
 Code for ARI & NMI calculation :
 ARI_NMI.py

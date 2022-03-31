@@ -4,7 +4,7 @@ library(cluster)
 library(factoextra)
 library(dplyr)
 
-data_mint <- read.csv('tsne_silhoutte/case_3_mint.csv', header = FALSE,sep=",")
+data_mint <- read.csv('tsne_silhoutte/case_4_mint.csv', header = FALSE,sep=",")
 drops <- c("V1","V3","V5")
 data_mint = data_mint[ , !(names(data_mint) %in% drops)]
 colnames(data_mint) = c("TSNE_1","TSNE_2","X")
@@ -18,7 +18,7 @@ d1 = as.data.frame(apply(data_mint,2,function(x) {x<-as.numeric(factor(x,levels 
 data_mint$X = d1$X
 dim(data_mint)
 
-data_scanorama <- read.csv('tsne_silhoutte/scanorama_case3.csv',sep=",",header=FALSE)
+data_scanorama <- read.csv('tsne_silhoutte/scanorama_case4.csv',sep=",",header=FALSE)
 data_scanorama <- data_scanorama[-c(1)]
 colnames(data_scanorama) = c("TSNE_1","TSNE_2","X")
 data1 = dplyr::filter(data_scanorama, grepl('Human-GM|Mouse-Bcell', X))
@@ -31,7 +31,7 @@ d1 = as.data.frame(apply(data_scanorama,2,function(x) {x<-as.numeric(factor(x,le
 data_scanorama$X = d1$X
 dim(data_scanorama)
 
-data_scale <- read.csv('tsne_silhoutte/scale_case3.csv',sep=",",header=FALSE)
+data_scale <- read.csv('tsne_silhoutte/scale_case4.csv',sep=",",header=FALSE)
 data_scale <- data_scale[-c(1)]
 colnames(data_scale) = c("TSNE_1","TSNE_2","X")
 data1 = dplyr::filter(data_scale, grepl('Human-GM|Mouse-Bcell', X))
@@ -44,7 +44,7 @@ d1 = as.data.frame(apply(data_scale,2,function(x) {x<-as.numeric(factor(x,levels
 data_scale$X = d1$X
 dim(data_scale)
 
-data_scvi <- read.csv('tsne_silhoutte/scvi_case3.csv',sep=",",header=FALSE)
+data_scvi <- read.csv('tsne_silhoutte/scvi_case4.csv',sep=",",header=FALSE)
 data_scvi <- data_scvi[-c(1)]
 colnames(data_scvi) = c("TSNE_1","TSNE_2","X")
 data1 = dplyr::filter(data_scvi, grepl('Human-GM|Mouse-Bcell', X))
@@ -57,7 +57,7 @@ d1 = as.data.frame(apply(data_scvi,2,function(x) {x<-as.numeric(factor(x,levels 
 data_scvi$X = d1$X
 dim(data_scvi)
 
-data_scepi <- read.csv('tsne_silhoutte/scepi_pos_case3.csv',sep=",",header=FALSE)
+data_scepi <- read.csv('tsne_silhoutte/scepi_pos_case4.csv',sep=",",header=FALSE)
 data_scepi <- data_scepi[-c(1)]
 colnames(data_scepi) = c("TSNE_1","TSNE_2","X")
 data1 = dplyr::filter(data_scepi, grepl('Human-GM|Mouse-Bcell', X))
@@ -106,6 +106,7 @@ silhouette_score_scepi <- function(k){
   #mean(ss[, 3])
   ss[,3]
 }
+k=5
 avg_sil_scale <- sapply(k, silhouette_score_scale)
 avg_sil_scanorama <- sapply(k, silhouette_score_scanorama)
 avg_sil_scvi <- sapply(k, silhouette_score_scvi)

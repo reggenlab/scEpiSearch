@@ -5,7 +5,7 @@ from sklearn.metrics.cluster import normalized_mutual_info_score
 from sklearn.cluster import SpectralClustering
 from sklearn.cluster import DBSCAN
 
-adj = np.loadtxt("./embedding_results/scepi_adj_embedding_3.txt",delimiter=",")
+adj = np.loadtxt("scepi_adj_embedding_3.txt",delimiter=",")
 clustering = SpectralClustering(n_clusters=2,assign_labels="kmeans",random_state=0,affinity='precomputed').fit(adj)
 clustering.labels_[:2] = 0
 clustering.labels_[201:202] = 1
@@ -36,6 +36,7 @@ clustering = DBSCAN(eps=3, min_samples=2).fit(ts)
 l = []
 l.extend(np.repeat(1,200))
 l.extend(np.repeat(0,200))
+clustering.labels_ = clustering.labels_[:400]
 print(adjusted_rand_score(l,clustering.labels_))
 print(normalized_mutual_info_score(l, clustering.labels_))
 
@@ -48,6 +49,7 @@ clustering = DBSCAN(eps=3, min_samples=2).fit(ts)
 l = []
 l.extend(np.repeat(1,200))
 l.extend(np.repeat(0,200))
+clustering.labels_ = clustering.labels_[:400]
 print(adjusted_rand_score(l,clustering.labels_))
 print(normalized_mutual_info_score(l, clustering.labels_))
 
@@ -57,6 +59,7 @@ clustering = DBSCAN(eps=5, min_samples=2).fit(ts)
 l = []
 l.extend(np.repeat(1,200))
 l.extend(np.repeat(0,200))
+clustering.labels_ = clustering.labels_[:400]
 print(adjusted_rand_score(l,clustering.labels_))
 print(normalized_mutual_info_score(l, clustering.labels_))
 
