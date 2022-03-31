@@ -100,7 +100,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
 #     epi = np.reshape(epi, (epi.shape[0], -1))
 #     epi=epi[:,:20]
     if (query_type == 1):
-        ref = pd.read_csv('./searchProject/storage/scepisearch/human/refseq-hg19.txt' , sep = '\t')
+        ref = pd.read_csv('scepisearch_integration/human/refseq-hg19.txt' , sep = '\t')
         ref.loc[:,'chrom'] = (ref['chrom'].str.split("_", expand=True)).iloc[: , 0]
         chr = pd.read_csv(chr_file, sep ='\t', header = None)
 
@@ -108,11 +108,11 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
         for i in ref['chrom'].unique():
             d[i] = [{'name' : ref['name'][j] , 'strand' : ref['strand'][j] , 'txStart' : ref['txStart'][j] ,'txEnd' : ref['txEnd'][j] ,'exonCount' : ref['exonCount'][j] ,'name2': ref['name2'][j]} for j in ref[ref['chrom']==i].index]
 
-        cmd = ['Rscript ./human/accessibility_score_faster/global_score.R '+chr_file+' ./human_to_mouse/acc_score.csv ./human_to_mouse/foreground.csv']
+        cmd = ['Rscript scepisearch_integration/human/accessibility_score_faster/global_score.R '+chr_file+' scepisearch_integration/acc_score.csv scepisearch_integration/foreground.csv']
         print(cmd)
         process = subprocess.call(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
-        ref = pd.read_csv('./searchProject/storage/scepisearch/mouse/refGene.txt' , sep = '\t')
+        ref = pd.read_csv('scepisearch_integration/mouse/refGene.txt' , sep = '\t')
         ref.loc[:,'chrom'] = (ref['chrom'].str.split("_", expand=True)).iloc[: , 0]
         chr = pd.read_csv(chr_file, sep ='\t', header = None)
 
@@ -120,14 +120,14 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
         for i in ref['chrom'].unique():
             d[i] = [{'name' : ref['name'][j] , 'strand' : ref['strand'][j] , 'txStart' : ref['txStart'][j] ,'txEnd' : ref['txEnd'][j] ,'exonCount' : ref['exonCount'][j] ,'name2': ref['name2'][j]} for j in ref[ref['chrom']==i].index]
 
-        cmd = ['Rscript ./mouse/accessibility_score_faster/global_score.R '+chr_file+' ./human_to_mouse/acc_score.csv ./human_to_mouse/foreground.csv']
+        cmd = ['Rscript scepisearch_integration/mouse/accessibility_score_faster/global_score.R '+chr_file+' scepisearch_integration/acc_score.csv scepisearch_integration/foreground.csv']
         process = subprocess.call(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if(process == 0):
-        nearest_gene_epi_path = './human_to_mouse/foreground.csv'
+        nearest_gene_epi_path = 'scepisearch_integration/foreground.csv'
         nearest_gene = pd.read_csv(nearest_gene_epi_path, sep="\t", header=None)
         if (acc_fast==2):
-            acc_score = np.loadtxt("./human_to_mouse/acc_score.csv")
+            acc_score = np.loadtxt("scepisearch_integration/acc_score.csv")
             epi = epi[(nearest_gene!=0).all(axis=1)]
             acc_score = acc_score[(nearest_gene!=0).all(axis=1)]
             nearest_gene = nearest_gene[(nearest_gene!=0).all(axis=1)]
@@ -141,7 +141,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
             for i in chr.iloc[:,0].unique():
                 d_chr[i] = [{'Start' : chr.iloc[j,1] ,'End' : chr.iloc[j,2] ,'index' : j} for j in chr[chr.iloc[:,0]==i].index if j not in ind_zero]
             nearest_gene = foreground_calc(d_chr , d , nearest_gene)
-            nearest_gene.to_csv("./human_to_mouse/foreground.csv",header=False,sep="\t")
+            nearest_gene.to_csv("scepisearch_integration/foreground.csv",header=False,sep="\t")
             return nearest_gene, epi
     else:
         nearest_gene = pd.DataFrame({})
@@ -253,8 +253,8 @@ def gene_enrichment_calc(epi,gene_list,nearest_gene):
 		gene_enriched = pd.DataFrame(np.array(res_1).reshape(sorted_col_idx.shape[1], len(gene_list)))
 		gene_enriched = np.transpose(np.array(gene_enriched))
 
-		np.savetxt('./human_to_mouse/enrichment_scores.txt', gene_enriched , delimiter=" ", fmt='%f')
-		np.savetxt('./human_to_mouse/marker_gene.txt', marker_gene , delimiter=" ", fmt = '%s')
+		np.savetxt('scepisearch_integration/enrichment_scores.txt', gene_enriched , delimiter=" ", fmt='%f')
+		np.savetxt('scepisearch_integration/marker_gene.txt', marker_gene , delimiter=" ", fmt = '%s')
 		return gene_enriched
 	
 	
@@ -268,9 +268,9 @@ def get_digit(x):
 
 def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poised,imputation):
     if(query_type==1):
-        sc_gene_path = './searchProject/storage/scepisearch/human/genes_21159.txt'
+        sc_gene_path = 'scepisearch_integration/human/genes_21159.txt'
     else:
-        sc_gene_path = './searchProject/storage/scepisearch/mouse/gene_mouse.csv'
+        sc_gene_path = 'scepisearch_integration/mouse/gene_mouse.csv'
 
     gene_list = list()
     with open(sc_gene_path, 'r') as fl:
@@ -281,7 +281,7 @@ def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poi
     # nearest_gene=pd.read_csv("./foreground.csv",header=None,sep=",")
     # epi=np.loadtxt(epi_path,delimiter=",")
     if not nearest_gene.empty:
-        acc_score_path = './human_to_mouse/acc_score.csv'
+        acc_score_path = 'scepisearch_integration/acc_score.csv'
         acc_score = np.loadtxt(acc_score_path)
         # epi = np.loadtxt(epi_path, delimiter=",")
         acc_score[acc_score == 0] = 1
@@ -314,7 +314,7 @@ def median_calc_null(x , corr_mat, exp_ref):
 	
 def cluster_exp_par(args):
     val,key,epi,final_res,lock,epi_gene,mouse_gene_lower = args
-    f0 = gzip.GzipFile('./compare_methods/MCA_reference_scepisearch/clust_'+str(key)+'.npy.gz', "r")
+    f0 = gzip.GzipFile('scepisearch_integration/MCA_reference_scepisearch/clust_'+str(key)+'.npy.gz', "r")
     epi_ref = np.load(f0)
 #     f3 = gzip.GzipFile('.//clust_'+str(key)+'.npy.gz', "r")
 #     corr_mat = np.load(f3)
@@ -322,10 +322,10 @@ def cluster_exp_par(args):
 #     for i in range(epi_ref.shape[1]):
 #         epi_ref[:,i]=epi_ref[:,i]/np.mean(epi_ref[:,i])
     
-    sorted_col = np.loadtxt("./gene_name_exp_loc_mouse.txt",delimiter=",")
+    sorted_col = np.loadtxt("scepisearch_integration/gene_name_exp_loc_mouse.txt",delimiter=",")
     sorted_col=sorted_col.astype(int)
     
-    clust_infor = pd.read_csv("./compare_methods/MCA_reference_scepisearch/clusters_final.txt",sep=" ",dtype='str')
+    clust_infor = pd.read_csv("scepisearch_integration/MCA_reference_scepisearch/clusters_final.txt",sep=" ",dtype='str')
 #     metadata = pd.read_csv("./searchProject/meta_mouse/metadata_exp.csv", header=None,sep="@")
 #     metadata = metadata.ix[:,2]
 #     nan_rows = metadata[metadata.isnull()]
@@ -394,11 +394,11 @@ imputation=1
 gene_enriched,epi_gene,epi = process_query(chr_file,query_file,top_study,query_type,acc_fast,active_poised,imputation)
 
 gene_mouse = list()
-with open("./mouse/gene_mouse.csv", 'r') as fl:
+with open("scepisearch_integration/mouse/gene_mouse.csv", 'r') as fl:
     for l in fl.readlines():
         gene_mouse.append(l.rstrip('\n'))
 	
-sc_gene_path = './human/genes_21159.txt'
+sc_gene_path = 'scepisearch_integration/human/genes_21159.txt'
 gene_list = list()
 with open(sc_gene_path, 'r') as fl:
     for l in fl.readlines():
@@ -418,7 +418,7 @@ for i in range(len(human_gene_lower)):
     else:
         continue
 	
-mean_array = np.load("./compare_methods/MCA_reference_scepisearch/mean_array.npy")
+mean_array = np.load("scepisearch_integration/MCA_reference_scepisearch/mean_array.npy")
 gene_enriched_mouse = np.array(gene_enriched_mouse)
 
 import rpy2.robjects as ro
@@ -442,7 +442,7 @@ res = np.array(res)
         
 res = np.transpose(res)
 
-index_value = np.genfromtxt("./compare_methods/MCA_reference_scepisearch/mean_array_subclusterindex.txt",dtype='str')
+index_value = np.genfromtxt("scepisearch_integration/MCA_reference_scepisearch/mean_array_subclusterindex.txt",dtype='str')
 
 N = 10
 sorted_clust = np.argsort(res, axis=0)[res.shape[0]-N::,:]
@@ -484,7 +484,7 @@ p.close()
 
 
 # correlation_matrix = np.zeros([10,81173])
-metadata = pd.read_csv("./compare_methods/MCA_reference_labels.csv", header=None, sep="@")
+metadata = pd.read_csv("scepisearch_integration/MCA_reference_labels.csv", header=None, sep="@")
 final_corr = np.zeros([268,5], dtype='int')
 pval_epi = np.zeros([268,5])
 final_fdr = np.zeros([268,5])
