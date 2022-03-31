@@ -9,7 +9,8 @@ Mouse-HSC : mouse_hsc_combined.csv , mouse_hsc.txt
 Mouse-Bcell : bcells_mouse_combined.csv , mouse_bcells.txt
 
 Code for Calculation of Latent Spaces and visualization:
-CODE_embedding_1.py
+CODE_embedding_1.txt
+
 
 Code for ARI & NMI calculation :
 ARI_NMI.py
