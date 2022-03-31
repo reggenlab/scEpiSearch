@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.neighbors import kneighbors_graph
 import itertools
 import networkx as nx
+from sklearn.manifold import TSNE
 
 adj = np.loadtxt("./scepi_adj_embedding_4.txt",delimiter=",")
 
@@ -19,9 +20,7 @@ ann = []
 l = [np.repeat(1,822),np.repeat(2,1213),np.repeat(3,480),np.repeat(4,1621)]
 l = list(itertools.chain(*l))
 for i in range(adj.shape[0]):
-    ann.append("D"+str(l[i])+" "+"Q"+str(i))
-	
-
+	ann.append("D"+str(l[i])+" "+"Q"+str(i))
 G = nx.from_numpy_matrix(np.matrix(adj>8))
 # color=colors[clustering.labels_]
 colors = np.array(list(islice(cycle(['#377eb8', '#ff7f00', '#4daf4a','#f781bf', '#a65628', '#984ea3','#999999', '#e41a1c', '#dede00']),int(max(l)+1))))
@@ -46,6 +45,7 @@ p_3 = mpatches.Patch(color='#f781bf', label='Human-HSC')
 p_4 = mpatches.Patch(color='#a65628', label='Mouse-HSC')
 
 plt.legend(handles=[p_1, p_2,p_3,p_4],fontsize=20)
+plt.show()
 # nx.draw_networkx_labels(G, pos, labels, font_size=9)
 # nx.draw_networkx_edges(G, pos=pos, ax=ax)
 
@@ -81,7 +81,7 @@ import numpy as np
 import scvi
 import scanpy as sc
 
-human_neuron = pd.read_csv(",./GE_GSE97942_human_brain.txt",sep=",", index_col = 0)
+human_neuron = pd.read_csv("./GE_GSE97942_human_brain.txt",sep=",", index_col = 0)
 mouse_neuron= pd.read_csv("./GE_mouse_forebrain.txt",sep=",", index_col=0)
 mouse_hsc = pd.read_csv("./GE_mouse_HSC.txt",sep=",",index_col = 0)
 human_hsc = pd.read_csv("./GE_human_HSC.txt",sep=",", index_col = 0)
@@ -107,7 +107,7 @@ model = scvi.model.SCVI(data)
 model.train()
 
 latent = model.get_latent_representation()
-np.savetxt("./scvi_latent.txt",delimiter=",")
+np.savetxt("./scvi_latent.txt",latent,delimiter=",")
 
 
 import matplotlib.pyplot

@@ -107,7 +107,7 @@ data = [[ 0.90 ,0.8667],
 [0.401 , 0.6240 ],
 [ 0.13, 0.250],
 [0.05590, 0.3363]]
-X = np.arange(3)
+X = np.arange(2)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 ind = np.arange(3)
@@ -119,6 +119,6 @@ ax.bar(X + 0.60, data[4], color = 'fuchsia', width = 0.15)
 ax.set_ylabel('Score in Fraction',fontsize=15)
 ax.set_title("Case Study-1")
 ax.set_xticks(ind)
-ax.set_xticklabels(('Purity', 'ARI', 'NMI'),fontsize=15)
+ax.set_xticklabels(( 'ARI', 'NMI'),fontsize=15)
 ax.legend(labels=['scEpiSearch', 'SCALE', 'SCVI','scanorama','MINT'],loc="upper left", bbox_to_anchor=(1,1),fontsize=15)
-
+plt.show()

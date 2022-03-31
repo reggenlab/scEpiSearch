@@ -1,10 +1,12 @@
-
+import pandas as pd
+import numpy as np
+from sklearn.metrics import adjusted_rand_score
+from sklearn.metrics.cluster import normalized_mutual_info_score
+from sklearn.cluster import SpectralClustering
+from sklearn.cluster import DBSCAN
 
 adj = np.loadtxt("scepi_adj_embedding_4.txt",delimiter=",")
 clustering = SpectralClustering(n_clusters=2,assign_labels="kmeans",random_state=0,affinity='precomputed').fit(adj)
-
-clustering.labels_[:20] = 0
-clustering.labels_[2101:2120] = 1
 l = []
 l.extend(np.repeat(1,2035))
 l.extend(np.repeat(0,2101))
@@ -67,7 +69,7 @@ data = [[0.9626,0.923],
 [0.04,0.086],
 [0.16,0.385],
 [0.06941449848293321,0.14799]]
-X = np.arange(3)
+X = np.arange(2)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 ind = np.arange(3)
@@ -76,8 +78,9 @@ ax.bar(X + 0.15, data[1], color = 'lightgreen', width = 0.15)
 ax.bar(X + 0.30, data[2], color = 'aqua', width = 0.15)
 ax.bar(X + 0.45, data[3], color = 'orange', width = 0.15)
 ax.bar(X + 0.60, data[4], color = 'fuchsia', width = 0.15)
-ax.set_title('Case Study-2')
 ax.set_ylabel('Score in Fraction',fontsize=15)
+ax.set_title("Case Study-1")
 ax.set_xticks(ind)
 ax.set_xticklabels(('ARI', 'NMI'),fontsize=15)
 ax.legend(labels=['scEpiSearch', 'SCALE', 'SCVI','scanorama','MINT'],loc="upper left", bbox_to_anchor=(1,1),fontsize=15)
+plt.show()

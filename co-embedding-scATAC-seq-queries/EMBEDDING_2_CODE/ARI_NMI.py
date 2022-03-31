@@ -67,7 +67,7 @@ data = [[0.931,0.873],
 [ 0.24, 0.396],
 [0.114, 0.16],
 [0.25521844703694835,0.36296]]
-X = np.arange(3)
+X = np.arange(2)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 ind = np.arange(3)
@@ -81,3 +81,4 @@ ax.set_ylabel('Score in Fraction',fontsize=15)
 ax.set_xticks(ind)
 ax.set_xticklabels(( 'ARI', 'NMI'),fontsize=15)
 ax.legend(labels=['scEpiSearch', 'SCALE', 'SCVI','scanorama','MINT'],loc="upper left", bbox_to_anchor=(1,1),fontsize=15)
+plt.show()
