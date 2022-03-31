@@ -78,7 +78,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
 #     print(epi.shape)
 #     epi = np.array(epi)
     if (query_type == 1):
-        ref = pd.read_csv('./searchProject/storage/scepisearch/human/refseq-hg19.txt' , sep = '\t')
+        ref = pd.read_csv('scepisearch_data_integration/human/refseq-hg19.txt' , sep = '\t')
         ref.loc[:,'chrom'] = (ref['chrom'].str.split("_", expand=True)).iloc[: , 0]
         chr = pd.read_csv(chr_file, sep ='\t', header = None)
 
@@ -89,7 +89,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
         cmd = ['Rscript ./human/accessibility_score_faster/global_score.R '+chr_file+' ./acc_score.csv ./foreground.csv']
         process = subprocess.call(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
-        ref = pd.read_csv('./searchProject/storage/scepisearch/mouse/refGene.txt' , sep = '\t')
+        ref = pd.read_csv('scepisearch_data_integration/mouse/refGene.txt' , sep = '\t')
         ref.loc[:,'chrom'] = (ref['chrom'].str.split("_", expand=True)).iloc[: , 0]
         chr = pd.read_csv(chr_file, sep ='\t', header = None)
 
@@ -101,7 +101,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
         process = subprocess.call(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if(process == 0):
-        nearest_gene_epi_path = './foreground.csv'
+        nearest_gene_epi_path = 'scepisearch_data_integration/foreground.csv'
         nearest_gene = pd.read_csv(nearest_gene_epi_path, sep="\t", header=None)
         if (acc_fast==2):
             acc_score = np.loadtxt("./acc_score.csv")
@@ -120,7 +120,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
             for i in chr.iloc[:,0].unique():
                 d_chr[i] = [{'Start' : chr.iloc[j,1] ,'End' : chr.iloc[j,2] ,'index' : j} for j in chr[chr.iloc[:,0]==i].index if j not in ind_zero]
             nearest_gene = foreground_calc(d_chr , d , nearest_gene)
-            nearest_gene.to_csv("./foreground.csv",header=False,sep="\t")
+            nearest_gene.to_csv("scepisearch_data_integration/foreground.csv",header=False,sep="\t")
             return nearest_gene, epi
     else:
         nearest_gene = pd.DataFrame({})
@@ -231,11 +231,11 @@ def gene_enrichment_calc(epi,gene_list,nearest_gene,query_type):
         marker_gene = pd.DataFrame(np.array(res_0).reshape(sorted_col_idx.shape[1],50))
         
         if query_type == 1:
-            a_file = open("./searchProject/meta_human/markers_human.pkl", "rb")
+            a_file = open("scepisearch_data_integration/meta_human/markers_human.pkl", "rb")
             dict_markers = pickle.load(a_file)
             a_file.close()
         else:
-            a_file = open("./searchProject/meta_mouse/markers_mouse.pkl", "rb")
+            a_file = open("scepisearch_data_integration/meta_mouse/markers_mouse.pkl", "rb")
             dict_markers = pickle.load(a_file)
             a_file.close()
         celltype_markers = pd.DataFrame(index = range(marker_gene.shape[0]), columns = range(marker_gene.shape[1]))
@@ -266,10 +266,10 @@ def gene_enrichment_calc(epi,gene_list,nearest_gene,query_type):
         gene_enriched = pd.DataFrame(np.array(res_1).reshape(sorted_col_idx.shape[1], len(gene_list)))
         gene_enriched = np.transpose(np.array(gene_enriched))
         
-        celltype_markers.to_csv('./scepisearch_query_results/celltype_markers.txt',sep="\t",header=False,index=False)
-        gene_mgi.to_csv('./scepisearch_query_results/gene_mgi.txt',sep="\t",header=False,index=False)
-        np.savetxt('./scepisearch_query_results/enrichment_scores.txt', gene_enriched , delimiter=" ", fmt='%f')
-        np.savetxt('./scepisearch_query_results/marker_gene.txt', marker_gene , delimiter=" ", fmt = '%s')
+        celltype_markers.to_csv('scepisearch_data_integration/celltype_markers.txt',sep="\t",header=False,index=False)
+        gene_mgi.to_csv('scepisearch_data_integration/gene_mgi.txt',sep="\t",header=False,index=False)
+        np.savetxt('scepisearch_data_integration/enrichment_scores.txt', gene_enriched , delimiter=" ", fmt='%f')
+        np.savetxt('scepisearch_data_integration/marker_gene.txt', marker_gene , delimiter=" ", fmt = '%s')
         return gene_enriched
 		
 		
@@ -320,7 +320,7 @@ def epi_matching(epi, query_type, gene_list, nearest_gene, top_study, epi_gene, 
         sorted_clust = np.argsort(res, axis=0)[res.shape[0]-50::,:]
     
         if query_type==1:
-            index_value = np.genfromtxt("./searchProject/storage/scepisearch/human/epi_new/mean_array_subclusterindex.txt",dtype='str')
+            index_value = np.genfromtxt("scepisearch_data_integration/human/epi_new/mean_array_subclusterindex.txt",dtype='str')
             #print(index_value)
             sorted_clust = index_value[sorted_clust.ravel()].reshape((sorted_clust.shape[0],sorted_clust.shape[1]))
             print(sorted_clust.shape)
@@ -381,11 +381,11 @@ def epi_matching(epi, query_type, gene_list, nearest_gene, top_study, epi_gene, 
         where_are_NaNs = np.isnan(correlation_matrix)
         correlation_matrix[where_are_NaNs] = 0
         
-        np.savetxt('./scepisearch_query_results/fdr_epi.txt', final_fdr , delimiter=" ", fmt='%f')
-        np.savetxt('./scepisearch_query_results/epi.txt', final_corr, fmt='%d', delimiter=" ")
-        np.savetxt('./scepisearch_query_results/pval_epi.txt', pval_epi, delimiter=" ", fmt='%f')
+        np.savetxt('scepisearch_data_integration/fdr_epi.txt', final_fdr , delimiter=" ", fmt='%f')
+        np.savetxt('scepisearch_data_integration/epi.txt', final_corr, fmt='%d', delimiter=" ")
+        np.savetxt('scepisearch_data_integration/pval_epi.txt', pval_epi, delimiter=" ", fmt='%f')
 #         np.savetxt('./scepisearch_query_results/autoencoder.txt', reduced_gene_enriched , delimiter=" ", fmt='%f')
-        np.savetxt('./scepisearch_query_results/enrichment_scores.txt', gene_enriched , delimiter=" ", fmt='%f')
+        np.savetxt('scepisearch_data_integration/enrichment_scores.txt', gene_enriched , delimiter=" ", fmt='%f')
         
 
         net_size = int(np.ceil(np.sqrt(5*np.sqrt(epi.shape[1]))))
@@ -395,14 +395,14 @@ def epi_matching(epi, query_type, gene_list, nearest_gene, top_study, epi_gene, 
         clust_infor = cluster_new(net, correlation_matrix, bmuList1, type= 'DBSCAN',cutoff=1, min_samples=1)
         clust_infor.iloc[:,3] = pd.Series(rand_jitter(np.array(clust_infor.iloc[:,3])))
         clust_infor.iloc[:,4] = pd.Series(rand_jitter(np.array(clust_infor.iloc[:,4])))
-        clust_infor.to_csv('./scepisearch_query_results/tsne.txt',sep =" ", index = False , header = False)
+        clust_infor.to_csv('scepisearch_data_integration/tsne.txt',sep =" ", index = False , header = False)
         
         correlation_matrix = pd.DataFrame(correlation_matrix)
         #print(correlation_matrix.shape)
         if query_type == 1:
-            meta_exp = pd.read_csv("./searchProject/meta_human/metadata_epi_new.csv", header=None,sep="@")
+            meta_exp = pd.read_csv("scepisearch_data_integration/meta_human/metadata_epi_new.csv", header=None,sep="@")
         else:
-            meta_exp = pd.read_csv("./searchProject/meta_mouse/metadata_epi.csv", header=None,sep="@")
+            meta_exp = pd.read_csv("scepisearch_data_integration/meta_mouse/metadata_epi.csv", header=None,sep="@")
         #print(meta_exp.shape)
         meta_exp = meta_exp.iloc[:,0]
         meta_exp = np.array(meta_exp)
@@ -412,7 +412,7 @@ def epi_matching(epi, query_type, gene_list, nearest_gene, top_study, epi_gene, 
         ax = sns.clustermap(correlation_matrix)
         ax.savefig('./scepisearch_query_results/heatmap.png')
 
-        correlation_matrix.to_csv('./scepisearch_query_results/correlation_matrix.txt', sep=" ", index=True,header=True)
+        correlation_matrix.to_csv('scepisearch_data_integration/correlation_matrix.txt', sep=" ", index=True,header=True)
 
         return gene_enriched, gene_name_exp_loc
     
@@ -434,17 +434,17 @@ def clusters_corr_null(null_model,exp_ref):
 def cluster_epi_par(args):
         val,key,final_res,lock,query_type,gene_enriched = args
         if query_type==1:
-            f0 = gzip.GzipFile('./searchProject/storage/scepisearch/human/epi_new/clusters_allgene_new_subclusters/clust_'+str(key)+'.npy.gz', "r")
+            f0 = gzip.GzipFile('scepisearch_data_integration/human/epi_new/clusters_allgene_new_subclusters/clust_'+str(key)+'.npy.gz', "r")
             exp_ref = np.load(f0)
-            null_model = np.load('./searchProject/storage/scepisearch/human/epi_new/null_model.npy')
+            null_model = np.load('scepisearch_data_integration/human/epi_new/null_model.npy')
             #corr_mat = np.load(f3)
-            clust_infor = pd.read_csv("./searchProject/storage/scepisearch/human/epi_new/clusters_subclusters.txt",sep=" ")
+            clust_infor = pd.read_csv("scepisearch_data_integration/human/epi_new/clusters_subclusters.txt",sep=" ")
         else:
-            f0 = gzip.GzipFile('./searchProject/storage/scepisearch/mouse/epi/clusters_allgene/clust_'+str(key)+'.npy.gz', "r")
+            f0 = gzip.GzipFile('scepisearch_data_integration/mouse/epi/clusters_allgene/clust_'+str(key)+'.npy.gz', "r")
             exp_ref = np.load(f0)
-            f3 = gzip.GzipFile('./searchProject/storage/scepisearch/mouse/epi/null_model/clust_'+str(key)+'.npy.gz', "r")
+            f3 = gzip.GzipFile('scepisearch_data_integration/mouse/epi/null_model/clust_'+str(key)+'.npy.gz', "r")
             corr_mat = np.load(f3)
-            clust_infor = pd.read_csv("./searchProject/storage/scepisearch/mouse/epi/clusters.txt",sep=" ")
+            clust_infor = pd.read_csv("scepisearch_data_integration/mouse/epi/clusters.txt",sep=" ")
 
         pinf = float('+inf')
         ninf = float('-inf')
@@ -524,9 +524,9 @@ def median_calc( x , exp_ref):
 
 def clusters_corr_epi(query_type,reduced_gene_enriched):
         if query_type==1:
-            mean_array_reduced = np.load("./searchProject/storage/scepisearch/human/epi_new/mean_array.npy")
+            mean_array_reduced = np.load("scepisearch_data_integration/human/epi_new/mean_array.npy")
         else:
-            mean_array_reduced = np.load("./searchProject/storage/scepisearch/mouse/epi/mean_array.npy")
+            mean_array_reduced = np.load("scepisearch_data_integration/mouse/epi/mean_array.npy")
             
         where_are_NaNs = np.isnan(mean_array_reduced)
         mean_array_reduced[where_are_NaNs] = 0
@@ -548,17 +548,17 @@ def clusters_corr_epi(query_type,reduced_gene_enriched):
 def autoencoder_output(query_type,gene_enriched):
 		gene_enriched = pd.DataFrame(np.transpose(gene_enriched))
 		if(query_type==1):
-			json_file = open('./searchProject/storage/scepisearch/human/epi/model_human.json', 'r')
+			json_file = open('scepisearch_data_integration/human/epi/model_human.json', 'r')
 			loaded_model_json = json_file.read()
 			json_file.close()
 			loaded_model = model_from_json(loaded_model_json)
-			loaded_model.load_weights("./searchProject/storage/scepisearch/human/epi/model_human.h5")
+			loaded_model.load_weights("scepisearch_data_integration/human/epi/model_human.h5")
 		else:
-			json_file = open('./searchProject/storage/scepisearch/mouse/epi/model_mouse.json', 'r')
+			json_file = open('scepisearch_data_integration/mouse/epi/model_mouse.json', 'r')
 			loaded_model_json = json_file.read()
 			json_file.close()
 			loaded_model = model_from_json(loaded_model_json)
-			loaded_model.load_weights("./searchProject/storage/scepisearch/mouse/epi/model_mouse.h5")
+			loaded_model.load_weights("scepisearch_data_integration/mouse/epi/model_mouse.h5")
 		loaded_model.compile(loss = 'mean_squared_error', optimizer=sgd)
 		encoder = Model(inputs=loaded_model.input, outputs=loaded_model.get_layer("dense_5").output)
 
@@ -612,16 +612,16 @@ def exp_matching(epi, gene_enriched, query_type, top_study, gene_name_exp_loc):
     res = clusters_corr_exp(query_type,gene_enriched)
 #     print(res.shape)
     if query_type==1:
-        index_value = np.genfromtxt("./human/clusters_celltypewise/subclusters/mean_array_subclusterindex.txt",dtype='str')
+        index_value = np.genfromtxt("scepisearch_data_integration/human/clusters_celltypewise/subclusters/mean_array_subclusterindex.txt",dtype='str')
 #         print(index_value)
     else:
-        index_value = np.genfromtxt("./mouse_new_exp/clusters_celltype/mean_array_subclusterindex.txt",dtype='str')
+        index_value = np.genfromtxt("scepisearch_data_integration/mouse_new_exp/clusters_celltype/mean_array_subclusterindex.txt",dtype='str')
     
     N = 10
     sorted_clust = np.argsort(res, axis=0)[res.shape[0]-N::,:]
 #     print(sorted_clust)
     sorted_clust = index_value[sorted_clust.ravel()].reshape((sorted_clust.shape[0],sorted_clust.shape[1]))
-    np.savetxt("./scepisearch_query_results/top_clusters.txt",sorted_clust,delimiter=" ",fmt='%s')
+    np.savetxt("scepisearch_data_integration/top_clusters.txt",sorted_clust,delimiter=" ",fmt='%s')
 
 #     print(sorted_clust)
     un = np.unique(sorted_clust)
@@ -660,21 +660,21 @@ def exp_matching(epi, gene_enriched, query_type, top_study, gene_name_exp_loc):
         pval_epi[i,:] = final_res[i,'pval'][ind]
         final_fdr[i,:] = final_res[i,'adj_pval'][ind]
 
-    np.savetxt('./scepisearch_query_results/fdr_exp.txt', final_fdr , delimiter=" ", fmt='%f')
-    np.savetxt('./scepisearch_query_results/exp.txt', final_corr, fmt='%d', delimiter=" ")
-    np.savetxt('./scepisearch_query_results/pval_exp.txt', pval_epi, delimiter=" ", fmt='%f')
-#     np.savetxt('./scepisearch_query_results/median.txt',final_corr,delimiter=" ",fmt='%f')
+    np.savetxt('scepisearch_data_integration/fdr_exp.txt', final_fdr , delimiter=" ", fmt='%f')
+    np.savetxt('scepisearch_data_integration/exp.txt', final_corr, fmt='%d', delimiter=" ")
+    np.savetxt('scepisearch_data_integration/pval_exp.txt', pval_epi, delimiter=" ", fmt='%f')
+#     np.savetxt('scepisearch_data_integration/median.txt',final_corr,delimiter=" ",fmt='%f')
 
 def autoencoder_output(query_type, gene_enriched):
     gene_enriched = pd.DataFrame(np.transpose(gene_enriched))
     if(query_type==1):
-        json_file = open('./searchProject/storage/scepisearch/human/exp/model_human.json', 'r')
+        json_file = open('scepisearch_data_integration/human/exp/model_human.json', 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         loaded_model = model_from_json(loaded_model_json)
-        loaded_model.load_weights("./searchProject/storage/scepisearch/human/exp/model_human.h5")
+        loaded_model.load_weights("scepisearch_data_integration/human/exp/model_human.h5")
     else:
-        json_file = open('./searchProject/storage/scepisearch/mouse/exp/model_mouse.json', 'r')
+        json_file = open('scepisearch_data_integration/mouse/exp/model_mouse.json', 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         loaded_model = model_from_json(loaded_model_json)
@@ -691,9 +691,9 @@ def autoencoder_output(query_type, gene_enriched):
 
 def clusters_corr_exp(query_type,reduced_gene_enriched):
     if query_type==1:
-        mean_array_reduced = np.load("./human/clusters_celltypewise/subclusters/mean_array.npy")
+        mean_array_reduced = np.load("scepisearch_data_integration/human/clusters_celltypewise/subclusters/mean_array.npy")
     else:
-        mean_array_reduced = np.load("./mouse_new_exp/clusters_celltype/mean_array.npy")
+        mean_array_reduced = np.load("scepisearch_data_integration/mouse_new_exp/clusters_celltype/mean_array.npy")
         
 #     where_are_NaNs = np.isnan(mean_array_reduced)
 #     mean_array_reduced[where_are_NaNs] = 0
@@ -737,23 +737,19 @@ def median_calc_null(x , corr_mat, exp_ref):
 def cluster_exp_par(args):
     val,key,final_res,lock,query_type,gene_name_exp_loc = args
     if(query_type == 1):
-        f0 = gzip.GzipFile('./human/clusters_celltypewise/subclusters/clust_'+str(key)+'.npy.gz', "r")
+        f0 = gzip.GzipFile('scepisearch_data_integration/human/clusters_celltypewise/subclusters/clust_'+str(key)+'.npy.gz', "r")
         exp_ref = np.load(f0)
-#         f3 = gzip.GzipFile('./searchProject/storage/scepisearch/human/exp/null_model/clust_'+str(key)+'.npy.gz', "r")
-#         corr_mat = np.load(f3)
         sorted_col = np.load("./null_idx_enrichment.npy")
-        clust_infor = pd.read_csv("./human/clusters_celltypewise/subclusters/clusters_final.txt",sep=" ",dtype='str')
+        clust_infor = pd.read_csv("scepisearch_data_integration/human/clusters_celltypewise/subclusters/clusters_final.txt",sep=" ",dtype='str')
 #         print(sorted_col.shape)
-        unanno = np.loadtxt("./searchProject/meta_human/exp_unknown_human.txt", delimiter=",")
+        unanno = np.loadtxt("scepisearch_data_integration/meta_human/exp_unknown_human.txt", delimiter=",")
     else:
-        f0 = gzip.GzipFile('./mouse_new_exp/clusters_celltype/subclusters_twentymillion/clust_'+str(key)+'.npy.gz', "r")
+        f0 = gzip.GzipFile('scepisearch_data_integration/mouse_new_exp/clusters_celltype/subclusters_twentymillion/clust_'+str(key)+'.npy.gz', "r")
         exp_ref = np.load(f0)
-#         f3 = gzip.GzipFile('./searchProject/storage/scepisearch/mouse/exp/null_model/clust_'+str(key)+'.npy.gz', "r")
-#         corr_mat = np.load(f3)
-        sorted_col = np.loadtxt("./gene_name_exp_loc_mouse.txt",delimiter=",")
+        sorted_col = np.loadtxt("scepisearch_data_integration/gene_name_exp_loc_mouse.txt",delimiter=",")
         sorted_col=sorted_col.astype(int)
-        clust_infor = pd.read_csv("./mouse_new_exp/clusters_celltype/clusters_final.txt",sep=" ",dtype='str')
-        metadata = pd.read_csv("./searchProject/meta_mouse/metadata_exp.csv", header=None,sep="@")
+        clust_infor = pd.read_csv("scepisearch_data_integration/mouse_new_exp/clusters_celltype/clusters_final.txt",sep=" ",dtype='str')
+        metadata = pd.read_csv("scepisearch_data_integration/meta_mouse/metadata_exp.csv", header=None,sep="@")
         metadata = metadata.iloc[:,2]
         nan_rows = metadata[metadata.isnull()]
         unanno = np.array(nan_rows.index)
@@ -822,20 +818,20 @@ from multiprocessing import Process
 import itertools
 def pdf_gen(query_file,query_type):
 		if query_type == 1:
-			metadata_epi = './searchProject/meta_human/metadata_epi.csv'
-			metadata_exp = './searchProject/meta_human/metadata_exp_with_tissue.csv'
+			metadata_epi = 'scepisearch_data_integration/meta_human/metadata_epi.csv'
+			metadata_exp = 'scepisearch_data_integration/meta_human/metadata_exp_with_tissue.csv'
 		elif query_type == 2:
-			metadata_epi = './searchProject/meta_mouse/metadata_epi.csv'
-			metadata_exp = './searchProject/meta_mouse/metadata_exp.csv'
+			metadata_epi = 'scepisearch_data_integration/meta_mouse/metadata_epi.csv'
+			metadata_exp = 'scepisearch_data_integration/meta_mouse/metadata_exp.csv'
 		else:
-			metadata_exp = './searchProject/meta_mouse/metadata_exp.csv'
+			metadata_exp = 'scepisearch_data_integration/meta_mouse/metadata_exp.csv'
 		if query_type == 1 or query_type == 2:
-			output_file_exp = open('./scepisearch_query_results/exp.txt')
-			output_file_epi = open('./scepisearch_query_results/epi.txt')
-			file_pval_exp = open('./scepisearch_query_results/pval_exp.txt')
-			file_pval_epi = open('./scepisearch_query_results/pval_epi.txt')
-			file_fdr_epi = open('./scepisearch_query_results/fdr_epi.txt')
-			file_fdr_exp = open('./scepisearch_query_results/fdr_exp.txt')
+			output_file_exp = open('scepisearch_data_integration/exp.txt')
+			output_file_epi = open('scepisearch_data_integration/epi.txt')
+			file_pval_exp = open('scepisearch_data_integration/pval_exp.txt')
+			file_pval_epi = open('scepisearch_data_integration/pval_epi.txt')
+			file_fdr_epi = open('scepisearch_data_integration/fdr_epi.txt')
+			file_fdr_exp = open('scepisearch_data_integration/fdr_exp.txt')
 			count = 0
 			for line1,line2,line3,line4,line5,line6 in zip(output_file_exp,file_pval_exp,file_fdr_exp,output_file_epi,file_pval_epi,file_fdr_epi):
 				matrix1 = list()
@@ -852,8 +848,8 @@ def pdf_gen(query_file,query_type):
 				line4[-1] = line4[-1].strip()
 				line5[-1] = line5[-1].strip()
 				line6[-1] = line6[-1].strip()
-				temp_filename_exp = "./scepisearch_query_results/query_exp_"+str(count)+".txt"
-				temp_filename_epi = "./scepisearch_query_results/query_epi_"+str(count)+".txt"
+				temp_filename_exp = "scepisearch_data_integration/query_exp_"+str(count)+".txt"
+				temp_filename_epi = "scepisearch_data_integration/query_epi_"+str(count)+".txt"
 				with open(temp_filename_exp, "w") as f1 , open(temp_filename_epi, "w") as f2:
 					for i,j,k,l,m,n in zip(line1, line2, line3, line4, line5, line6):
 						line = linecache.getline(metadata_exp, int(i)+1)
@@ -867,12 +863,12 @@ def pdf_gen(query_file,query_type):
 				count = count + 1
 			filename = generate_pdf(count,query_type)
 			for i in range(int(count)):
-				os.remove('./scepisearch_query_results/query_exp_' + str(i) + '.txt')
-				os.remove('./scepisearch_query_results/query_epi_' + str(i) + '.txt')
+				os.remove('scepisearch_data_integration/query_exp_' + str(i) + '.txt')
+				os.remove('scepisearch_data_integration/query_epi_' + str(i) + '.txt')
 		else:
-			output_file_exp = open('./scepisearch_query_results/exp.txt')
-			file_pval_exp = open('./scepisearch_query_results/pval_exp.txt')
-			file_fdr_exp = open('./scepisearch_query_results/fdr_exp.txt')
+			output_file_exp = open('scepisearch_data_integration/exp.txt')
+			file_pval_exp = open('scepisearch_data_integration/pval_exp.txt')
+			file_fdr_exp = open('scepisearch_data_integration/fdr_exp.txt')
 			count = 0
 			for line1,line2,line3 in zip(output_file_exp,file_pval_exp,file_fdr_exp):
 				matrix1 = list()
@@ -883,7 +879,7 @@ def pdf_gen(query_file,query_type):
 				line1[-1] = line1[-1].strip()
 				line2[-1] = line2[-1].strip()
 				line3[-1] = line3[-1].strip()
-				temp_filename_exp = "./scepisearch_query_results/query_exp_"+str(count)+".txt"
+				temp_filename_exp = "scepisearch_data_integration/query_exp_"+str(count)+".txt"
 				with open(temp_filename_exp, "w") as f1:
 					for i,j,k in zip(line1, line2, line3):
 						line = linecache.getline(metadata_exp, int(i)+1)
@@ -893,7 +889,7 @@ def pdf_gen(query_file,query_type):
 				count = count + 1
 			filename = generate_pdf(count,query_type)
 			for i in range(int(count)):
-				os.remove('./scepisearch_query_results/query_exp_' + str(i) + '.txt')
+				os.remove('scepisearch_data_integration/query_exp_' + str(i) + '.txt')
 				
 				
 ## pdf report_generator
@@ -913,14 +909,14 @@ from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt 
 
 def generate_pdf(query_cells,query_type):
-	filename = './scepisearch_query_results/results.pdf'
+	filename = 'scepisearch_data_integration/results.pdf'
 	doc = SimpleDocTemplate(filename,
                         rightMargin=72,leftMargin=72,
                         topMargin=72,bottomMargin=18)
 
 	Story=[]
 
-	logo = './searchProject/logo.jpg'
+	logo = 'scepisearch_data_integration/logo.jpg'
 	im = Image(logo, 6*inch, 1.5*inch)
 	Story.append(im)
 
@@ -979,7 +975,7 @@ def generate_pdf(query_cells,query_type):
 			Story.append(Paragraph(ptext, styles["Normal"]))
 			data_exp = list()
 			data_exp.append(['CellId', 'StudyId', 'Phenotype', 'P value', 'Adjusted P value'])
-			temp_filename = './scepisearch_query_results/query_exp_'+ str(i) + '.txt'
+			temp_filename = 'scepisearch_data_integration/query_exp_'+ str(i) + '.txt'
 			with open(temp_filename) as file:
 				reader = list(csv.reader(file,delimiter="@"))
 			for i in range(len(reader)):
@@ -1013,7 +1009,7 @@ def generate_pdf(query_cells,query_type):
 			Story.append(Paragraph(ptext, styles["Normal"]))
 			data_exp = list()
 			data_exp.append(['CellId', 'StudyId', 'Phenotype', 'P value', 'Adjusted P value'])
-			temp_filename = './scepisearch_query_results/query_epi_'+ str(i) + '.txt'
+			temp_filename = 'scepisearch_data_integration/query_epi_'+ str(i) + '.txt'
 			with open(temp_filename) as file:
 				reader = list(csv.reader(file,delimiter="@"))
 			for i in range(1,len(reader)):
@@ -1039,7 +1035,7 @@ def generate_pdf(query_cells,query_type):
 			Story.append(Paragraph(ptext, styles["Normal"]))
 			data_exp = list()
 			data_exp.append(['CellId', 'StudyId', 'Phenotype', 'P value', 'Adjusted P value'])
-			temp_filename = './scepisearch_query_results/query_exp_'+ str(i) + '.txt'
+			temp_filename = 'scepisearch_data_integration/query_exp_'+ str(i) + '.txt'
 			with open(temp_filename) as file:
 				reader = list(csv.reader(file,delimiter="@"))
 			for i in range(len(reader)):
@@ -1081,7 +1077,7 @@ def generate_pdf(query_cells,query_type):
 	plt.axis("off") 
 	plt.tight_layout(pad = 0) 
 	#plt.show()
-	plt.savefig('./scepisearch_query_results/wordcloud.png')
+	plt.savefig('scepisearch_data_integration/wordcloud.png')
 	 
 	return filename
 
@@ -1096,9 +1092,9 @@ def get_digit(x):
 
 def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poised,imputation):
     if(query_type==1):
-        sc_gene_path = './searchProject/storage/scepisearch/human/genes_21159.txt'
+        sc_gene_path = 'scepisearch_data_integration/genes_21159.txt'
     else:
-        sc_gene_path = './searchProject/storage/scepisearch/mouse/gene_mouse.csv'
+        sc_gene_path = 'scepisearch_data_integration/gene_mouse.csv'
 
     gene_list = list()
     with open(sc_gene_path, 'r') as fl:
@@ -1106,17 +1102,13 @@ def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poi
             gene_list.append(l.rstrip('\n'))
 
     nearest_gene,epi = nearest_gene_accurate(query_type,chr_file,acc_fast,epi_path)
-#     print(nearesht_gene)
-#     nearest_gene=pd.read_csv("./foreground.csv",header=None,sep=",")
-    # epi=np.loadtxt(epi_path,delimiter=",")
     if not nearest_gene.empty:
-        acc_score_path = './acc_score.csv'
+        acc_score_path = 'scepisearch_data_integration/acc_score.csv'
         acc_score = np.loadtxt(acc_score_path)
         # epi = np.loadtxt(epi_path, delimiter=",")
         acc_score[acc_score == 0] = 1
 
         epi = np.array(epi)/(acc_score[:, np.newaxis])
-#         np.savetxt("./scepisearch_query_results/k562_100cells/normalized_count.txt",epi,delimiter=",")
 
         start_nearest = list(nearest_gene.iloc[:,1])
         end_nearest = list(nearest_gene.iloc[:,3])
@@ -1131,7 +1123,7 @@ def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poi
             else:
                 epi_gene[k] = genename_end[k]
         
-#         gene_enriched = np.loadtxt("./scepisearch_query_results/enrichment_scores.txt",delimiter=" ")
+#         gene_enriched = np.loadtxt("scepisearch_data_integration/enrichment_scores.txt",delimiter=" ")
         gene_enriched = gene_enrichment_calc(epi,gene_list,nearest_gene,query_type)
         if int(active_poised)==1:
             N = 500
@@ -1159,8 +1151,8 @@ def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poi
 		
 
 ##########################Select query peak file and count file of query cells #################################
-chr_file='./human/human_epigenome/5_queries/h1esc/h1esc.bed'
-query_file='./human/human_epigenome/5_queries/h1esc/h1esc_human.txt'
+chr_file='h1esc.bed'
+query_file='h1esc_human.txt'
 top_study=5
 query_type=1
 acc_fast=2
