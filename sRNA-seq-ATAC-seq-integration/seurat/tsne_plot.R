@@ -1,10 +1,9 @@
 ##ggplot based
-setwd("/storage/vibhor/neeteshp/shreyas_tools_testing/")
-data = read.csv("./seurat-embed/mouse/embeds-MCA-cell-Mouse-liver-3cells.txt",sep="\t")
+data = read.csv("embeds-MCA-cell-Mouse-liver-3cells.txt",sep="\t")
 #data = data[2:nrow(data),]
 #data$V8 = paste0(data$V5," ",data$V6," ",data$V7)
 data = data[,c(2,3,4)]
-#labels = read.csv("./tsne_coords/MCA_reference_labels.csv",sep="\t",header=F)
+#labels = read.csv("MCA_reference_labels.csv",sep="\t",header=F)
 #data = cbind.data.frame(data,labels)
 
 library(dplyr)
