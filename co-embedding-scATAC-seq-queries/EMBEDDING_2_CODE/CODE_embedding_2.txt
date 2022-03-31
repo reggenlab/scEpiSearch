@@ -5,8 +5,11 @@ from sklearn.cluster import SpectralClustering
 from itertools import cycle, islice
 import matplotlib.pyplot as plt
 from sklearn.neighbors import kneighbors_graph
+import networkx as nx
+from sklearn.manifold import TSNE
 
-adj = np.loadtxt("./embedding_results/scepi_adj_embedding_2.txt",delimiter=",")
+
+adj = np.loadtxt("scepi_adj_embedding_2.txt",delimiter=",")
 adj = np.nan_to_num(adj)
 adj = np.abs(adj)                                   # no negative weights
 adj = adj - np.diag(np.diag(adj))                   # no self loops
@@ -17,9 +20,7 @@ ann = []
 l = [np.repeat(1,100),np.repeat(2,100),np.repeat(3,100),np.repeat(4,100)]
 l = list(itertools.chain(*l))
 for i in range(adj.shape[0]):
-    ann.append("D"+str(l[i])+" "+"Q"+str(i))
-	
-import networkx as nx
+	ann.append("D"+str(l[i])+" "+"Q"+str(i))
 G = nx.from_numpy_matrix(np.matrix(adj>5))
 # color=colors[clustering.labels_]
 colors = np.array(list(islice(cycle(['#377eb8', '#ff7f00', '#4daf4a','#f781bf', '#a65628', '#984ea3','#999999', '#e41a1c', '#dede00']),int(max(l)+1))))
@@ -44,7 +45,7 @@ p_3 = mpatches.Patch(color='#f781bf', label='Human-HEK293T')
 p_4 = mpatches.Patch(color='#a65628', label='Mouse-Proximal Tubule')
 
 plt.legend(handles=[p_1, p_2,p_3,p_4],fontsize=10)
-
+plt.show()
 ---------------------------------------------------------------------SCALE---------------------------------------------------------------
 #RAN FOLLOWING COMMAND FOR EACH QUERY DATASET TO GET FEATURES IN LATENT SPACE
 python SCALE.py --dataset ./DATASET.tsv --n_centroids 1 --batch_size 500 --seed 43 --min_peaks 400 --lr 0.0002 --max_iter 500
@@ -52,10 +53,10 @@ python SCALE.py --dataset ./DATASET.tsv --n_centroids 1 --batch_size 500 --seed 
 
 import matplotlib.pyplot
 from sklearn.manifold import TSNE
-human_bcell = np.loadtxt("./output_scale_embedding2/feature_human_gm.txt",delimiter="\t")
-mouse_bcell = np.loadtxt("./output_scale_embedding2/feature_gm_mouse.txt",delimiter="\t")
-human_hek = np.loadtxt("./output_scale_embedding2/feature_hek_human.txt",delimiter="\t")
-mouse_proximal = np.loadtxt("./output_scale_embedding2/feature_proximal_mouse.txt",delimiter="\t")
+human_bcell = np.loadtxt("./output_scale_embedding/feature_human_gm.txt",delimiter="\t")
+mouse_bcell = np.loadtxt("./output_scale_embedding/feature_gm_mouse.txt",delimiter="\t")
+human_hek = np.loadtxt("./output_scale_embedding/feature_hek_human.txt",delimiter="\t")
+mouse_proximal = np.loadtxt("./output_scale_embedding/feature_proximal_mouse.txt",delimiter="\t")
 latent_space = np.concatenate([human_bcell,mouse_bcell,human_hek,mouse_proximal],axis=0)
 ts = TSNE(n_components=2).fit_transform(latent_space)
 import matplotlib.pyplot as plt
