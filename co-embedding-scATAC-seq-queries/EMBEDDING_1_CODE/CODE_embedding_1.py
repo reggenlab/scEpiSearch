@@ -128,7 +128,7 @@ latent = model.get_latent_representation()
 np.savetxt("./scvi_latent.txt",delimiter=",")
 
 import matplotlib.pyplot
-latent_space = np.loadtxt("./gene_enrichment_scores_embedding_data/scvi_latent_Space.txt",delimiter=",")
+latent_space = np.loadtxt("scvi_latent_Space.txt",delimiter=",")
 ts = TSNE(n_components=2).fit_transform(latent_space)
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
