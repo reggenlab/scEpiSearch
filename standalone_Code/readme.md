@@ -9,6 +9,22 @@ User can install all dependencies for the application using requirements.txt fil
 One can use following command for same : <br>
 python3 -m pip install --user -r /path_where_project/searchProject/requirements.txt <br>
 
+or Following dependecies can be installed : <br>
+MulticoreTSNE == 0.1 <br>
+Pillow == 7.0.0 <br>
+SimpSOM == 1.3.3 <br>
+matplotlib == 3.0.3 <br>
+networkx == 2.4 <br>
+numpy == 1.16.4 <br>
+numpy_indexed == 0.3.5 <br>
+pandas == 0.24.2 <br>
+reportlab == 3.3.0 <br>
+rpy2 == 3.0.1 <br>
+scikit_learn == 0.22.2.post1 <br>
+scipy == 1.1.0 <br>
+seaborn == 0.9.0 <br>
+wordcloud == 1.7.0 <br>
+
 User also need to have R installed in their system beforehand. <br>
 R related packages required : GenomicRanges <br>
 Rpy2 library used in this project creates a bridge between R and python. <br>
