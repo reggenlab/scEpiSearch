@@ -86,7 +86,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
         for i in ref['chrom'].unique():
             d[i] = [{'name' : ref['name'][j] , 'strand' : ref['strand'][j] , 'txStart' : ref['txStart'][j] ,'txEnd' : ref['txEnd'][j] ,'exonCount' : ref['exonCount'][j] ,'name2': ref['name2'][j]} for j in ref[ref['chrom']==i].index]
 
-        cmd = ['Rscript ./human/accessibility_score_faster/global_score.R '+chr_file+' ./acc_score.csv ./foreground.csv']
+        cmd = ['Rscript scepisearch_data_integration/human/accessibility_score_faster/global_score.R '+chr_file+' ./acc_score.csv ./foreground.csv']
         process = subprocess.call(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
         ref = pd.read_csv('scepisearch_data_integration/mouse/refGene.txt' , sep = '\t')
@@ -97,7 +97,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
         for i in ref['chrom'].unique():
             d[i] = [{'name' : ref['name'][j] , 'strand' : ref['strand'][j] , 'txStart' : ref['txStart'][j] ,'txEnd' : ref['txEnd'][j] ,'exonCount' : ref['exonCount'][j] ,'name2': ref['name2'][j]} for j in ref[ref['chrom']==i].index]
 
-        cmd = ['Rscript ./mouse/accessibility_score_faster/global_score.R '+chr_file+' ./acc_score.csv ./foreground.csv']
+        cmd = ['Rscript scepisearch_data_integration/mouse/accessibility_score_faster/global_score.R '+chr_file+' ./acc_score.csv ./foreground.csv']
         process = subprocess.call(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if(process == 0):
