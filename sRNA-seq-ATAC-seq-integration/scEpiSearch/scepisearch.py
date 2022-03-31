@@ -131,7 +131,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
             epi = epi[(nearest_gene!=0).all(axis=1)]
             acc_score = acc_score[(nearest_gene!=0).all(axis=1)]
             nearest_gene = nearest_gene[(nearest_gene!=0).all(axis=1)]
-            np.savetxt("./human_to_mouse/acc_score.csv",acc_score)
+            np.savetxt("Rscript scepisearch_integration/acc_score.csv",acc_score)
             return nearest_gene, epi
         else:
             ind_bool = (nearest_gene!=0).all(axis=1)
