@@ -4,30 +4,41 @@ library(parallel)
 library(ggplot2)
 library(Matrix)
 ########################Load reference dataset file###########################################
-pbmc.rna <- read.csv("MCA_reference.csv",row.names=1)
+pbmc.rna <- read.csv("scRNA-scATAC-integration/MCA_reference.csv",row.names=1)
 row.names(pbmc.rna) = toupper(row.names(pbmc.rna))
 
 ######################Load query atac-seq (gene activity scores) ###################################
-gene.activities <- read.table("3cells_activity_matrix_mouse.txt",row.names=1,sep=" ")
+#gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/macropahe_activity_matrix_mouse.txt",row.names=1,sep=" ")
+#gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/endothelial_activity_matrix_mouse.txt",row.names=1,sep=" ")
+#gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/endothelial_activity_matrix_mouse.txt",row.names=1,sep=" ")
 row.names(gene.activities) = toupper(row.names(gene.activities))
 
-##################subset query cells based on celltype if required#################################
-endo = gene.activities[,1:318]
-macro = gene.activities[,319:413]
-bj = gene.activities[,414:437]
+gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/PBMC_activity_matrix.txt",row.names=1,sep=" ")
+#gene.activities <- read.table("scRNA-scATAC-integration/gene_activity_GM.txt",row.names=1,sep=",")
+#gene.activities <- read.table("scRNA-scATAC-integration/gene_activity_h1esc.txt",row.names=1,sep=",")
+#gene.activities <- read.table("scRNA-scATAC-integration/gene_activity_neuron.txt",row.names=1,sep=",")
+#gene.activities <- read.table("scRNA-scATAC-integration/gene_activity_MYOBLAST.txt",row.names=1,sep=",")
 
-gene.activities <- as(gene.activities,"dgCMatrix") 
+##################subset query cells based on celltype if required (For Liver 3 cells)#################################
+#gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/3cells_activity_matrix_mouse.txt",row.names=1,sep=" ")
+#row.names(gene.activities) = toupper(row.names(gene.activities))
+#endo = gene.activities[,1:318]
+#macro = gene.activities[,319:413]
+#bcell = gene.activities[,414:437]
+#endo <- as(endo,"dgCMatrix") 
+#macro <- as(macro,"dgCMatrix") 
+#bcell <- as(bcell,"dgCMatrix") 
+#data <- list(atac_1 = endo,atac_2=macro,atac_3=bcell, rna = rna_dgc)
+
 ################convert queries to dgcMatrix#############################
-endo <- as(endo,"dgCMatrix") 
-macro <- as(macro,"dgCMatrix") 
-bj <- as(bj,"dgCMatrix") 
+gene.activities <- as(gene.activities,"dgCMatrix") 
 rna_dgc =  as(pbmc.rna, "dgCMatrix")
 data <- list(atac = gene.activities, rna = rna_dgc)
+
 #####################combine reference and query matrices#########################
-data <- list(atac_1 = endo,atac_2=macro,atac_3=bj, rna = rna_dgc)
 
 p2l <- mclapply(data,basicP2proc,n.odgenes=3e3,nPcs=30,make.geneknn=F,n.cores=30,mc.cores=1)
-metadata.rna = read.csv("MCA_reference_labels.csv",header=F)
+metadata.rna = read.csv("scRNA-scATAC-integration/MCA_reference_labels.csv",header=F)
 rownames(metadata.rna) = colnames(rna_dgc)
 
 l.con <- Conos$new(p2l,n.cores=30)
@@ -51,8 +62,9 @@ for(i in 1:nrow(tsne)){
   }
 }
 #assign names to atac groups according to their cell types
-tsne$Group[tsne$Group == 'atac'] = 'macrophage_mouse'
-tsne$Group[tsne$Group == 'atac_1'] = 'Endothelial_mouse'
-tsne$Group[tsne$Group == 'atac_2'] = 'Macrophage_mouse'
-tsne$Group[tsne$Group == 'atac_3'] = 'Bcell_mouse'
+tsne$Group[tsne$Group == 'atac'] = 'PBMC_human'
+#tsne$Group[tsne$Group == 'atac'] = 'macrophage_mouse'
+#tsne$Group[tsne$Group == 'atac_1'] = 'Endothelial_mouse'
+#tsne$Group[tsne$Group == 'atac_2'] = 'Macrophage_mouse'
+#tsne$Group[tsne$Group == 'atac_3'] = 'Bcell_mouse'
 
