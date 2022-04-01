@@ -4,7 +4,7 @@ library(cluster)
 library(factoextra)
 library(dplyr)
 
-data_seurat <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/seurat-embed/mouse/embeds-MCA-cell-Mouse-liver-3cells.txt', header = TRUE,sep="\t")
+data_seurat <- read.csv('embeds-MCA-cell-Mouse-liver-3cells.txt', header = TRUE,sep="\t")
 drops <- c("X")
 data_seurat = data_seurat[ , !(names(data_seurat) %in% drops)]
 colnames(data_seurat) = c("TSNE_1","TSNE_2","X")
@@ -23,8 +23,8 @@ d1 = as.data.frame(apply(data_seurat,2,function(x) {x<-as.numeric(factor(x,level
 data_seurat$X = d1$X
 head(data_seurat,5)
 
-data_conos <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/3cells_mouse_conos_tsne.txt.csv',sep=",")
-data_conos <- data_conos[-c(1,5,6,7,8,9,10,11)]
+data_conos <- read.csv('3cells_mouse_conos_tsne.txt.csv',sep=",")
+data_conos <- data_conos[-c(1,2,6,7,8,9,10,11,12)]
 colnames(data_conos) = c("TSNE_1","TSNE_2","X")
 data1 = dplyr::filter(data_conos, grepl('Macro|Macrophage_mouse', X))
 data2 = dplyr::filter(data_conos, grepl('B cell|Bcell_mouse', X))
@@ -42,7 +42,7 @@ d1 = as.data.frame(apply(data_conos,2,function(x) {x<-as.numeric(factor(x,levels
 data_conos$X = d1$X
 head(data_conos,5)
 
-data_liger <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/liger_3cell_mouse_tsne.txt', header = TRUE,sep="\t")
+data_liger <- read.csv('liger_3cell_mouse_tsne.txt', header = TRUE,sep="\t")
 #data_liger <- data_liger[-c(1)]
 colnames(data_liger) = c("TSNE_1","TSNE_2","X")
 data1 = dplyr::filter(data_liger, grepl('Macro|Macrophage_mouse', X))
@@ -61,7 +61,7 @@ d1 = as.data.frame(apply(data_liger,2,function(x) {x<-as.numeric(factor(x,levels
 data_liger$X = d1$X
 head(data_liger,5)
 
-data_scepi <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/3cells_liver_scepi_tsne.txt', header = TRUE,sep=" ")
+data_scepi <- read.csv('3cells_liver_scepi_tsne.txt', header = TRUE,sep=" ")
 data1 = dplyr::filter(data_scepi, grepl('Macro|Macrophage_Mouse', X))
 data2 = dplyr::filter(data_scepi, grepl('B cell|Bcell_Mouse', X))
 data3 = dplyr::filter(data_scepi, grepl('Endo|Endothelial_Mouse', X))
@@ -83,6 +83,12 @@ df_conos <- data_conos[-c(3)]
 df_liger <- data_liger[-c(3)]
 df_scepi <- data_scepi[-c(3)]
 k=5
+silhouette_score_scepi <- function(k){
+  #km <- kmeans(df_scepi, centers = k)
+  ss <- silhouette(data_scepi$X, dist(df_scepi))
+  #mean(ss[, 3])
+  abs(ss[,3])
+}
 silhouette_score_seurat <- function(k){
   #km <- kmeans(df_seurat, centers = k)
   ss <- silhouette(data_seurat$X, dist(df_seurat))
@@ -101,18 +107,11 @@ silhouette_score_liger <- function(k){
   #mean(ss[, 3])
   ss[,3]
 }
-silhouette_score_scepi <- function(k){
-  #km <- kmeans(df_scepi, centers = k)
-  ss <- silhouette(data_scepi$X, dist(df_scepi))
-  #mean(ss[, 3])
-  ss[,3]
-}
 avg_sil_seurat <- sapply(k, silhouette_score_seurat)
 avg_sil_conos <- sapply(k, silhouette_score_conos)
 avg_sil_liger <- sapply(k, silhouette_score_liger)
 avg_sil_scepi <- sapply(k, silhouette_score_scepi)
 #plot(k, type='b', avg_sil, xlab='Number of clusters', ylab='Average Silhouette Scores', frame=FALSE)
-
 avg_sil_scepi = as.data.frame(avg_sil_scepi)
 avg_sil_scepi$X = labels_scepi
 sil_scepi = dplyr::filter(avg_sil_scepi, grepl('Macrophage_Mouse|Bcell_Mouse|Endothelial_Mouse', X))

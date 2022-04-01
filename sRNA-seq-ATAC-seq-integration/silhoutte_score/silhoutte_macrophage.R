@@ -4,13 +4,12 @@ library(cluster)
 library(factoextra)
 library(dplyr)
 
-data_seurat <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/seurat-embed/mouse/embeds-MCA-cell-Mouse-macrophages.txt', header = TRUE,sep="\t")
+data_seurat <- read.csv('embeds-MCA-cell-Mouse-macrophages.txt', header = TRUE,sep="\t")
 head(data_seurat,3)
-drops <- c("X")
-data_seurat = data_seurat[ , !(names(data_seurat) %in% drops)]
+data_seurat = data_seurat[ , c(-1)]
 colnames(data_seurat) = c("TSNE_1","TSNE_2","X")
-data1 = dplyr::filter(data_seurat, grepl('Macro|macrophage_mouse', X))
-data2 = dplyr::filter(data_seurat, !grepl('Macro|macrophage_mouse', X))
+data1 = dplyr::filter(data_seurat, grepl('Macro|Macrophage_Mouse', X))
+data2 = dplyr::filter(data_seurat, !grepl('Macro|Macrophage_Mouse', X))
 data_seurat_l = rbind(data1,data2)
 labels_seurat = data_seurat_l$X
 data1$X = "bcell"
@@ -20,7 +19,7 @@ d1 = as.data.frame(apply(data_seurat,2,function(x) {x<-as.numeric(factor(x,level
 data_seurat$X = d1$X
 head(data_seurat,5)
 
-data_conos <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/macrophage_mouse_conos_tsne.txt.csv',header=TRUE,sep=",")
+data_conos <- read.csv('macrophage_mouse_conos_tsne.txt.csv',header=TRUE,sep=",")
 head(data_conos,3)
 data_conos <- data_conos[-c(1,2)]
 colnames(data_conos) = c("TSNE_1","TSNE_2","X")
@@ -36,12 +35,12 @@ d1 = as.data.frame(apply(data_conos,2,function(x) {x<-as.numeric(factor(x,levels
 data_conos$X = d1$X
 head(data_conos,5)
 
-data_liger <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/liger_macrophae_mouse_tsne.txt', header = TRUE,sep="\t")
+data_liger <- read.csv('liger_macrophae_mouse_tsne.txt', header = TRUE,sep="\t")
 head(data_liger,3)
 #data_liger <- data_liger[-c(1)]
 colnames(data_liger) = c("TSNE_1","TSNE_2","X")
-data1 = dplyr::filter(data_liger, grepl('Macro|macrophage_mouse', X))
-data2 = dplyr::filter(data_liger, !grepl('Macro|macrophage_mouse', X))
+data1 = dplyr::filter(data_liger, grepl('Macro|Macrophage_mouse', X))
+data2 = dplyr::filter(data_liger, !grepl('Macro|Macrophage_mouse', X))
 data_liger_l = rbind(data1,data2)
 labels_liger = data_liger_l$X
 data1$X = "bcell"
@@ -52,9 +51,9 @@ d1 = as.data.frame(apply(data_liger,2,function(x) {x<-as.numeric(factor(x,levels
 data_liger$X = d1$X
 head(data_liger,5)
 
-data_scepi <- read.csv('/storage/vibhor/neeteshp/shreyas_tools_testing/tsne_coords/macrophage_liver_scepi_tsne.txt', header = TRUE,sep=" ")
-data1 = dplyr::filter(data_scepi, grepl('Macro|macrophage_mouse', X))
-data2 = dplyr::filter(data_scepi, !grepl('Macro|macrophage_mouse', X))
+data_scepi <- read.csv('macrophage_liver_scepi_tsne.txt', header = TRUE,sep=" ")
+data1 = dplyr::filter(data_scepi, grepl('Macro|Macrophage_Mouse', X))
+data2 = dplyr::filter(data_scepi, !grepl('Macro|Macrophage_Mouse', X))
 data_scepi_l = rbind(data1,data2)
 labels_scepi = data_scepi_l$X
 data1$X = "bcell"
