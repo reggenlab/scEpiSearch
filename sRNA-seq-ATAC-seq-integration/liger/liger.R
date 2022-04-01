@@ -1,8 +1,16 @@
 #LIGER :
+library(rliger)
 ######################################### Load reference dataset ############################################
-data.rna <- read.csv("MCA_reference.csv")
+data.rna <- read.csv("scRNA-scATAC-integration/MCA_reference.csv")
 ########################################Load query atac seq dataset ######################################
-data.atac <- read.csv("liver-3cells_liger.txt")
+data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/liver-3cells_liger.txt",sep="\t",header=FALSE)
+#data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/liver-macrophage_liger.txt",sep="\t",header=FALSE)
+#data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/pbmc_liger.txt",sep="\t",header=FALSE)
+#data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/neuron_GSE97942_liger.txt",sep="\t",header=FALSE)
+#data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/liver-endothelial_liger.txt",sep="\t",header=FALSE)
+#data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/GM_liger.tsv",sep=" ",header=FALSE)
+#data.atac <- read.csv("scRNA-scATAC-integration/liger_data_query_/h1esc_liger.tsv",sep="\t",header=FALSE)
+
 rownames(data.rna) = data.rna[1:nrow(data.rna),1]
 data.rna = data.rna[1:nrow(data.rna),2:ncol(data.rna)]
 row.names(data.rna) = toupper(row.names(data.rna))
@@ -20,11 +28,11 @@ int.bmmc <- scaleNotCenter(int.bmmc, remove.missing = FALSE)
 int.bmmc <- optimizeALS(int.bmmc, k = 20)
 int.bmmc <- quantile_norm(int.bmmc,knn_k=5)
 int.bmmc <- runUMAP(int.bmmc, distance = 'cosine', n_neighbors = 30, min_dist = 0.3)
-p = plotByDatasetAndCluster(int.bmmc, axis.labels = c('UMAP 1', 'UMAP 2'),return.plots = TRUE))
+p = plotByDatasetAndCluster(int.bmmc, axis.labels = c('UMAP 1', 'UMAP 2'),return.plots = TRUE)
 #Get tsne coordinates from Liger :  
 tsne_df <- data.frame(int.bmmc@tsne.coords)
-  colnames(tsne_df) <- c("Dim1", "Dim2")
-  tsne_df[['Dataset']] <- unlist(lapply(1:length(int.bmmc@H), function(x) {
+colnames(tsne_df) <- c("Dim1", "Dim2")
+tsne_df[['Dataset']] <- unlist(lapply(1:length(int.bmmc@H), function(x) {
     rep(names(int.bmmc@H)[x], nrow(int.bmmc@H[[x]]))
   }))
 
