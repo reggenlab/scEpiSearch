@@ -1,4 +1,4 @@
-import itertools, json, subprocess, sys, os, csv, random, glob, re, gzip, time, matplotlib, keras, multiprocessing
+import itertools, json, subprocess, sys, os, csv, random, glob, re, gzip, time, matplotlib, multiprocessing
 import numpy as np
 import pandas as pd
 import statistics as sc
@@ -15,8 +15,6 @@ from sklearn.manifold import TSNE
 import sklearn.preprocessing
 from rpy2.robjects.packages import importr
 from rpy2.robjects.vectors import FloatVector
-from keras.models import Model
-sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 stats = importr('stats')
 from numpy.random import seed
 import sklearn as sk
@@ -131,7 +129,7 @@ def nearest_gene_accurate(query_type, chr_file, acc_fast, query_file):
             epi = epi[(nearest_gene!=0).all(axis=1)]
             acc_score = acc_score[(nearest_gene!=0).all(axis=1)]
             nearest_gene = nearest_gene[(nearest_gene!=0).all(axis=1)]
-            np.savetxt("Rscript scepisearch_integration/acc_score.csv",acc_score)
+            np.savetxt("scepisearch_integration/acc_score.csv",acc_score)
             return nearest_gene, epi
         else:
             ind_bool = (nearest_gene!=0).all(axis=1)
@@ -288,10 +286,10 @@ def process_query(chr_file, epi_path, top_study, query_type, acc_fast,active_poi
 
         epi = np.array(epi)/(acc_score[:, np.newaxis])
 
-        start_nearest = list(nearest_gene.ix[:,1])
-        end_nearest = list(nearest_gene.ix[:,3])
-        genename_start = list(nearest_gene.ix[:,0])
-        genename_end = list(nearest_gene.ix[:,2])
+        start_nearest = list(nearest_gene.iloc[:,1])
+        end_nearest = list(nearest_gene.iloc[:,3])
+        genename_start = list(nearest_gene.iloc[:,0])
+        genename_end = list(nearest_gene.iloc[:,2])
 
         #gene names from nearest genes from either of the two gene locations
         epi_gene = [0] * len(start_nearest)
@@ -383,15 +381,17 @@ def cluster_exp_par(args):
             final_res[j,'adj_pval'] = np.append(final_res[j,'adj_pval'],p_adjust_epi[:,i])
 
 ##########################Select query peak file and count file of query cells #################################
-chr_file='neuron_GSM2579603_peaks_hg19_final.bed'
-query_file='neuron_GSE97942_SCEPI.csv'
+chr_file='queries_scepisearch/neuron_GSM2579603_peaks_hg19_final.bed'
+query_file='queries_scepisearch/neuron_GSE97942_SCEPI.csv'
 top_study=5
+##############################select query_type=1 if human else 2
 query_type=1
 acc_fast=2
 active_poised=2
 imputation=1
 
 gene_enriched,epi_gene,epi = process_query(chr_file,query_file,top_study,query_type,acc_fast,active_poised,imputation)
+print(epi.shape)
 
 gene_mouse = list()
 with open("scepisearch_integration/mouse/gene_mouse.csv", 'r') as fl:
@@ -410,7 +410,9 @@ intersect_gene = list(set(human_gene_lower) & set(mouse_gene_lower))
 
 gene_enriched_mouse = gene_enriched
 
-gene_enriched_mouse = np.zeros((23595,268)) 
+data = np.loadtxt(query_file,delimiter=",")
+cols = epi.shape[1]
+gene_enriched_mouse = np.zeros((23595,cols)) 
 for i in range(len(human_gene_lower)):
     if human_gene_lower[i] in mouse_gene_lower:
         ind = mouse_gene_lower.index(human_gene_lower[i])
@@ -468,7 +470,7 @@ for i,j in enumerate(un):
 manager = multiprocessing.Manager()
 final_res = manager.dict()
 lock = manager.Lock()
-for i in range(268):
+for i in range(cols):
 #     final_res[i] = {}
     final_res[i,'corr'] = np.array([])
     final_res[i,'index'] = np.array([])
@@ -485,9 +487,9 @@ p.close()
 
 # correlation_matrix = np.zeros([10,81173])
 metadata = pd.read_csv("scepisearch_integration/MCA_reference_labels.csv", header=None, sep="@")
-final_corr = np.zeros([268,5], dtype='int')
-pval_epi = np.zeros([268,5])
-final_fdr = np.zeros([268,5])
+final_corr = np.zeros([cols,5], dtype='int')
+pval_epi = np.zeros([cols,5])
+final_fdr = np.zeros([cols,5])
 
 for i in range(268):
     ind = np.argsort(final_res[i,'corr'])[::-1][:5]
@@ -499,5 +501,5 @@ for i in range(268):
 # metadata = metadata.iloc[:,0]
 final_corr = final_corr.astype(int)
 cells = metadata[np.ravel(final_corr)]
-cells_forebrain = pd.DataFrame(np.reshape(np.array(cells), (268,5)))
+cells_forebrain = pd.DataFrame(np.reshape(np.array(cells), (cols,5)))
 
