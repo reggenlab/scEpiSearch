@@ -14,15 +14,15 @@ library('Matrix')
 #
 ########## loading mouse cell atlas expression profile 
 
-rna = read.csv('MCA_reference_raw_count.tsv', header=T, sep=" ") ;
+rna = read.csv('scRNA-scATAC-integration/MCA_reference_raw_count.tsv', header=T, sep=" ") ;
 data = rna ;
 rownames(data) = toupper(rownames(data)) ;
 
-label=read.csv('MCA_reference_labels.csv', header=F) ;
+label=read.csv('scRNA-scATAC-integration/MCA_reference_labels.csv', header=F) ;
 
 #########
 
-atacf = c('new-h1esc_seurat_hg19.csv' , 'new-neuron_seurat_hg19.csv', 'new-GM_seurat_hg19.csv' , 'pbmc-good-cells.csv') ;
+atacf = c('/storage/scepisearch_supplementary_files/scRNA-scATAC-integration/seurat data/new-h1esc_seurat_hg19.csv' , 'scRNA-scATAC-integration/seurat data/new-neuron_seurat_hg19.csv', 'scRNA-scATAC-integration/seurat datanew-GM_seurat_hg19.csv' , 'scRNA-scATAC-integration/seurat datapbmc-good-cells.csv') ;
 
 for (i in 1:4) 
 {
@@ -115,7 +115,7 @@ write.table(embeds, file=fname) ;
 ###################################################
 
 
-atacf = c('mouse-liver-endothelial-readcount.csv', 'mouse-liver-macrophage-readcount.csv', 'mouse-liver-endo-1:318-macrp-319:413-B-414:437.csv','mouse-liver-Bdata-readcount.csv' ) ;
+atacf = c('scRNA-scATAC-integration/seurat data/mouse-liver-endothelial-readcount.csv', 'scRNA-scATAC-integration/seurat datamouse-liver-macrophage-readcount.csv', 'scRNA-scATAC-integration/seurat datamouse-liver-endo-1:318-macrp-319:413-B-414:437.csv','mouse-liver-Bdata-readcount.csv' ) ;
 
 peakf = 'mouse-liver-peaks.txt' ;
 
