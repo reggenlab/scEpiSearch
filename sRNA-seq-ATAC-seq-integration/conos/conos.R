@@ -11,7 +11,7 @@ row.names(pbmc.rna) = toupper(row.names(pbmc.rna))
 #gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/macropahe_activity_matrix_mouse.txt",row.names=1,sep=" ")
 #gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/endothelial_activity_matrix_mouse.txt",row.names=1,sep=" ")
 #gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/endothelial_activity_matrix_mouse.txt",row.names=1,sep=" ")
-row.names(gene.activities) = toupper(row.names(gene.activities))
+#row.names(gene.activities) = toupper(row.names(gene.activities))
 
 gene.activities <- read.table("scRNA-scATAC-integration/seurat-embed/activity_matrix_new/PBMC_activity_matrix.txt",row.names=1,sep=" ")
 #gene.activities <- read.table("scRNA-scATAC-integration/gene_activity_GM.txt",row.names=1,sep=",")
@@ -49,7 +49,7 @@ l.con$embedGraph(alpha=1/2);
 
 p1 <- l.con$plotGraph(font.size=c(3,5),title='conos clusters',alpha=0.2) #+ annotate("text",  x=-Inf, y = Inf, label = "clusters", vjust=1, hjust=0)
 p2 <- l.con$plotGraph(groups=as.factor(metadata.rna),mark.groups=T,alpha=0.2,plot.na=F,title='annotation: RNA',font.size=c(3,5))+xlim(range(l.con$embedding[,1]))+ylim(range(l.con$embedding[,2]));
-p2c <- l.con$plotGraph(groups=atac.annotation,mark.groups=T,alpha=0.2,plot.na=F,title='annotation: ATAC',font.size=c(3,5))+xlim(range(l.con$embedding[,1]))+ylim(range(l.con$embedding[,2]));
+#p2c <- l.con$plotGraph(groups=atac.annotation,mark.groups=T,alpha=0.2,plot.na=F,title='annotation: ATAC',font.size=c(3,5))+xlim(range(l.con$embedding[,1]))+ylim(range(l.con$embedding[,2]));
 p3 <- l.con$plotGraph(color.by='sample',mark.groups=T,alpha=0.1,show.legend=T,title='platform',raster=T)+theme(legend.position=c(1,1),legend.justification = c(1,1))+guides(color=guide_legend(ncol=2,override.aes = list(size=3,alpha=0.8)))
 tsne = p3$data
 tsne$Group <- as.character(tsne$Group)
