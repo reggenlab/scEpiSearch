@@ -22,7 +22,7 @@ label=read.csv('scRNA-scATAC-integration/MCA_reference_labels.csv', header=F) ;
 
 #########
 
-atacf = c('/storage/scepisearch_supplementary_files/scRNA-scATAC-integration/seurat data/new-h1esc_seurat_hg19.csv' , 'scRNA-scATAC-integration/seurat data/new-neuron_seurat_hg19.csv', 'scRNA-scATAC-integration/seurat datanew-GM_seurat_hg19.csv' , 'scRNA-scATAC-integration/seurat datapbmc-good-cells.csv') ;
+atacf = c('scRNA-scATAC-integration/seurat data/new-h1esc_seurat_hg19.csv' , 'scRNA-scATAC-integration/seurat data/new-neuron_seurat_hg19.csv', 'scRNA-scATAC-integration/seurat datanew-GM_seurat_hg19.csv' , 'scRNA-scATAC-integration/seurat datapbmc-good-cells.csv') ;
 
 for (i in 1:4) 
 {
