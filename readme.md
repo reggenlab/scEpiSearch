@@ -3,7 +3,9 @@ Studying single cells using epigenome helps in highlighting active and poised re
 Web server : http://reggen.iiitd.edu.in:1207/episearch/<br/>
 Standalone code : Download searchProject_new.tar.gz from http://reggen.iiitd.edu.in:1207/episearch/standalone/ <br/>
 Please download standalone tool from Download searchProject_new.tar.gz from  http://reggen.iiitd.edu.in:1207/episearch/standalone/  <br>
-Supplementary Tables & Files : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/
+Supplementary Tables & Files : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/ <br>
+
+To use it in command line mode, we have provided example in https://github.com/reggenlab/scEpiSearch/tree/main/sRNA-seq-ATAC-seq-integration/scEpiSearch where scepisearch.py can be run from command line.  
 <br/><br/>
 Link for Data,code,Results of figures : <br /><br/>
 Figure-1 :<br/>
