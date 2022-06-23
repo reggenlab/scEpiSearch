@@ -25,13 +25,13 @@ Following arguments user can edit within the script as mentioned below : <br>
 	anno_unanno = 2		 <br>
 	########### Accurate - 1 , Faster - 2 <br>
 	accurate_faster = 2 <br>
-################################################################
+################################################################ <br>
 
 For embedding of Query cells from different batches/species, use commandline_embedding.py script. <br>
 Command to run script is : <br>
 python3 commandline_embedding.py <br>
 Following arguments user can edit within the script as mentioned below : <br>
-#################################################################
+################################################################# <br>
 		########## Number of Dataset Queries <br>
 		data =  2   #No of datasets <br>
 		########## Number of Top results for each query <br>
