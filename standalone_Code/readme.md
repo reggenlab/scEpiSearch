@@ -2,6 +2,59 @@ This folder contains code files from scEpiSearch standalone tool. <br>
 This is for demonstration purpose of the code only. <br>
 In order to run the standalone tool Please download searchProject_new.tar.gz from http://reggen.iiitd.edu.in:1207/episearch/standalone/
 
+If user wants to run the tool from command line. Please follow the following script :<br>
+For finding projection of Query cells, use commandline_search.py script. <br>
+Command to run script is : <br>
+python3 commandline_search.py <br>
+Following arguments user can edit within the script as mentioned below : <br>
+############################################################################# INPUT THE ARGUMENTS HERE######################################################################
+<br>
+	########## Query count file location ####<br>
+	query_file = './sample_queries/human/GM/query_gm.txt'<br>
+	########## Query peak file location #### <br>
+	chr_file = './sample_queries/human/GM/chr_gm.bed' <br>
+	########## No of top results for each query cell <br>
+	top_study = 5 <br>
+	########## No of Top clusters to search from <br>
+	cluster = 5			     # No of Clusters <br>
+	########## Active genes(Top 500) - 1 , Poised genes(Top 2000) - 2 <br>
+	active_poised = 1		     <br>
+	########## Query Type : Human - 1 , Mouse - 2 , Cross-Species - 3 <br>
+	query_type = 1                      # 1 - Human , 2 - Mouse , 3 - Cross-Species <br>
+	########## Annotated/Unannotated : Annotated - 1 , Unannotated - 2 <br>
+	anno_unanno = 2		 <br>
+	########### Accurate - 1 , Faster - 2 <br>
+	accurate_faster = 2 <br>
+##############################################################################################################################################################################
+
+For embedding of Query cells from different batches/species, use commandline_embedding.py script. <br>
+Command to run script is : <br>
+python3 commandline_embedding.py <br>
+Following arguments user can edit within the script as mentioned below : <br>
+################################################################################################################################################################
+		########## Number of Dataset Queries <br>
+		data =  2   #No of datasets <br>
+		########## Number of Top results for each query <br>
+		rps = 5 <br>
+		########## Active(Top 500 Genes) - 1 , Poised(Top 1000 Genes) - 2 <br>
+		active_poised = 2 <br>
+		########## Top clusters to search from  <br>
+		cls = 5 <br>
+		########## Accurate - 1 , Faster -2 <br>
+		var1 = 2   # accurate_faster <br>
+		########## Annotated Reference only - 1 , Unannotated Reference - 2  <br>
+		anno_unanno_emb = 2		#annotated_unannotated <br>
+		########## Query Count files location <br>
+		query_file = ['./queries_embedding/query_gm_GSE68103_human.csv','./queries_embedding/query_bcells_mouse.txt'] <br>
+		########## Queries Peak files location (In same order as above) <br>
+		chr_file = ['./queries_embedding/gm_human_GSE68103.bed','./queries_embedding/chr_bcells_mouse.bed'] <br>
+		########## Species for each dataset (Human-1,Mouse-2) <br>
+		vars = [1,2]		#species info <br>
+################################################################################################################################################################
+
+
+
+
 
 User need to have python >=3.5+ install in their system. <br>
 
