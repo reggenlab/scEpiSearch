@@ -7,7 +7,7 @@ For finding projection of Query cells, use commandline_search.py script. <br>
 Command to run script is : <br>
 python3 commandline_search.py <br>
 Following arguments user can edit within the script as mentioned below : <br>
-####################### INPUT THE ARGUMENTS HERE######################################################################
+############# INPUT THE ARGUMENTS HERE#################
 <br>
 	########## Query count file location ####<br>
 	query_file = './sample_queries/human/GM/query_gm.txt'<br>
@@ -25,13 +25,13 @@ Following arguments user can edit within the script as mentioned below : <br>
 	anno_unanno = 2		 <br>
 	########### Accurate - 1 , Faster - 2 <br>
 	accurate_faster = 2 <br>
-################################################################################################################
+################################################################
 
 For embedding of Query cells from different batches/species, use commandline_embedding.py script. <br>
 Command to run script is : <br>
 python3 commandline_embedding.py <br>
 Following arguments user can edit within the script as mentioned below : <br>
-#######################################################################################################
+#################################################################
 		########## Number of Dataset Queries <br>
 		data =  2   #No of datasets <br>
 		########## Number of Top results for each query <br>
@@ -50,7 +50,7 @@ Following arguments user can edit within the script as mentioned below : <br>
 		chr_file = ['./queries_embedding/gm_human_GSE68103.bed','./queries_embedding/chr_bcells_mouse.bed'] <br>
 		########## Species for each dataset (Human-1,Mouse-2) <br>
 		vars = [1,2]		#species info <br>
-############################################################################################################
+###################################################################
 
 
 
