@@ -8,7 +8,7 @@ Supplementary Tables & Files : http://reggen.iiitd.edu.in:1207/scepisearch_suppl
 To use it in command line mode, we have provided example in https://github.com/reggenlab/scEpiSearch/tree/main/sRNA-seq-ATAC-seq-integration/scEpiSearch where scepisearch.py can be run from command line.  
 <br/><br/>
 Link for Data,code,Results of figures : <br /><br/>
-Figure-2 :<br/>
+Figure-2(E):<br/>
 Cell-type Query (Human)(Source GEO ID) : URL <br/>
 HL60 (GSE109828): http://reggen.iiitd.edu.in:1207/episearch/?job=-ntlgsuqp4-utvlgmnqx <br/>
 Myoblast (GSE109828) : http://reggen.iiitd.edu.in:1207/episearch/?job=-ggbqir0do-hlpsn5gn7 , http://reggen.iiitd.edu.in:1207/episearch/?job=-ag5z14ze5-v2xf77zlf <br/>
@@ -33,6 +33,8 @@ HL60 (GSE109828) : http://reggen.iiitd.edu.in:1207/episearch/?job=-ljwz1w0ml-whr
 H1ESC (GSE65360) : http://reggen.iiitd.edu.in:1207/episearch/?job=-p880gctre-yhrfim47c <br/>
 <br/>
 Dataset Location : http://reggen.iiitd.edu.in:1207/episearch/index.php?view=sample_queries <br/>
+<br/>
+Figure-2(C,D) Data & Code : https://github.com/reggenlab/scEpiSearch/tree/main/sRNA-seq-ATAC-seq-integration <br />
 <br/>
 Figure-S5,S6,S7 : Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code<br/>
 Dataset : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/S5,S6,S7-data/<br/>
