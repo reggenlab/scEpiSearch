@@ -8,7 +8,7 @@ Supplementary Tables & Files : http://reggen.iiitd.edu.in:1207/scepisearch_suppl
 To use it in command line mode, we have provided example in https://github.com/reggenlab/scEpiSearch/tree/main/sRNA-seq-ATAC-seq-integration/scEpiSearch where scepisearch.py can be run from command line.  
 <br/><br/>
 Link for Data,code,Results of figures : <br /><br/>
-Figure-1 :<br/>
+Figure-2 :<br/>
 Cell-type Query (Human)(Source GEO ID) : URL <br/>
 HL60 (GSE109828): http://reggen.iiitd.edu.in:1207/episearch/?job=-ntlgsuqp4-utvlgmnqx <br/>
 Myoblast (GSE109828) : http://reggen.iiitd.edu.in:1207/episearch/?job=-ggbqir0do-hlpsn5gn7 , http://reggen.iiitd.edu.in:1207/episearch/?job=-ag5z14ze5-v2xf77zlf <br/>
@@ -38,24 +38,24 @@ Figure-S5,S6,S7 : Code : https://github.com/reggenlab/scEpiSearch/tree/main/stan
 Dataset : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/S5,S6,S7-data/<br/>
 Result Tables : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/
 <br/><br/>
-Figure-2 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-2-data-code/ <br />
+Figure-3 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-2-data-code/ <br />
 Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code , 
 <br/><br/>
-Figure-3(a) Data : <a href="" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE</a><br />
+Figure-4(a) Data : <a href="" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE</a><br />
 code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_1_CODE</a>
 <br/><br/>
-Figure-3(b) Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE</a><br />
+Figure-4(b) Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE</a><br />
 code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_2_CODE</a>
 <br/><br/>
-Figure-3(c) Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE</a><br />
+Figure-4(c) Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE</a><br />
 code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_3_CODE</a>
 <br/><br/>
 Figure-S9 Data : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE</a><br />
 code : <a href="https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE" style="color: red">https://github.com/reggenlab/scEpiSearch/tree/main/co-embedding-scATAC-seq-queries/EMBEDDING_4_CODE</a>
 <br/><br/>
 <br/><br/>
-Figure-4 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-4-data-code/<br />
+Figure-5 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-4-data-code/<br />
 Code : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-4-data-code/TSNE_cancer_immune_embedding_final.ipynb 
 <br/><br/>
-Figure-5 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-5-data-code/ <br />
+Figure-6 Data : http://reggen.iiitd.edu.in:1207/scepisearch_supplementary_files/scepisearch_supplementary_files/Figure-5-data-code/ <br />
 Code : https://github.com/reggenlab/scEpiSearch/tree/main/standalone_Code , https://github.com/reggenlab/scEpiSearch/tree/main/mESC-scATAC-seq-analysis
